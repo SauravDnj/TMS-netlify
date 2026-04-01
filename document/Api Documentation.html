@@ -1,0 +1,1656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task Management System — API Documentation</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f6f3;
+  --surface: #ffffff;
+  --surface2: #f2f0ec;
+  --border: #e4e1d9;
+  --border2: #d4d0c8;
+  --text: #1a1916;
+  --text2: #5c5952;
+  --text3: #9c9890;
+  --get: #0a6640;
+  --get-bg: #e8f5ee;
+  --get-border: #b5dfc7;
+  --post: #1a4fa0;
+  --post-bg: #e8eef8;
+  --post-border: #b3c8ee;
+  --put: #7a4a00;
+  --put-bg: #fdf3e3;
+  --put-border: #f0d09a;
+  --patch: #5e2d91;
+  --patch-bg: #f3edfb;
+  --patch-border: #d4b8f0;
+  --delete: #991b1b;
+  --delete-bg: #fef2f2;
+  --delete-border: #fca5a5;
+  --accent: #1a4fa0;
+  --mono: 'IBM Plex Mono', monospace;
+  --serif: 'Fraunces', serif;
+  --sans: 'DM Sans', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+}
+
+/* ── SIDEBAR NAV ── */
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-top {
+  padding: 28px 20px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-brand {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+  letter-spacing: -0.3px;
+}
+
+.sidebar-sub {
+  font-size: 11px;
+  color: var(--text3);
+  font-family: var(--mono);
+  letter-spacing: 0.3px;
+}
+
+.sidebar-version {
+  display: inline-block;
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text3);
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.nav-section {
+  padding: 20px 0 4px;
+}
+
+.nav-section-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--text3);
+  padding: 0 20px 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 20px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .15s;
+  border-left: 2px solid transparent;
+}
+
+.nav-item:hover { background: var(--surface2); }
+.nav-item.active { background: #eff4ff; border-left-color: var(--accent); }
+
+.nav-method {
+  font-family: var(--mono);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 2px 5px;
+  border-radius: 3px;
+  min-width: 34px;
+  text-align: center;
+}
+
+.nm-get    { background: var(--get-bg);    color: var(--get);    border: 1px solid var(--get-border); }
+.nm-post   { background: var(--post-bg);   color: var(--post);   border: 1px solid var(--post-border); }
+.nm-put    { background: var(--put-bg);    color: var(--put);    border: 1px solid var(--put-border); }
+.nm-patch  { background: var(--patch-bg);  color: var(--patch);  border: 1px solid var(--patch-border); }
+.nm-delete { background: var(--delete-bg); color: var(--delete); border: 1px solid var(--delete-border); }
+
+.nav-label {
+  font-size: 12px;
+  color: var(--text2);
+  font-weight: 400;
+}
+
+.nav-item.active .nav-label { color: var(--accent); font-weight: 500; }
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+}
+
+.base-url-display {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  word-break: break-all;
+}
+
+.base-url-display strong { color: var(--text2); display: block; margin-bottom: 3px; font-size: 9px; letter-spacing: 0.8px; text-transform: uppercase; }
+
+/* ── MAIN CONTENT ── */
+.main {
+  padding: 0;
+}
+
+/* Hero */
+.hero {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 52px 60px 44px;
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: 38px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -1px;
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+
+.hero-title em { font-style: italic; color: var(--accent); }
+
+.hero-desc {
+  font-size: 15px;
+  color: var(--text2);
+  max-width: 560px;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hero-chip {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--text2);
+}
+
+.chip-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 2px rgba(34,197,94,.2);
+}
+
+.chip-key {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+}
+
+.chip-val {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* Sections */
+.content-area { padding: 0 60px 80px; }
+
+.section {
+  padding-top: 56px;
+}
+
+.section-anchor { display: block; position: relative; top: -24px; visibility: hidden; }
+
+.section-group-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 6px;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+.section-desc {
+  font-size: 14px;
+  color: var(--text2);
+  margin-bottom: 32px;
+  max-width: 620px;
+  line-height: 1.7;
+}
+
+/* Endpoint Card */
+.endpoint-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+
+.endpoint-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+}
+
+.endpoint-header:hover { background: var(--surface2); }
+
+.method-badge {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 11px;
+  border-radius: 5px;
+  letter-spacing: 0.5px;
+  margin-top: 1px;
+  white-space: nowrap;
+}
+
+.mb-get    { background: var(--get-bg);    color: var(--get);    border: 1px solid var(--get-border); }
+.mb-post   { background: var(--post-bg);   color: var(--post);   border: 1px solid var(--post-border); }
+.mb-put    { background: var(--put-bg);    color: var(--put);    border: 1px solid var(--put-border); }
+.mb-patch  { background: var(--patch-bg);  color: var(--patch);  border: 1px solid var(--patch-border); }
+.mb-delete { background: var(--delete-bg); color: var(--delete); border: 1px solid var(--delete-border); }
+
+.endpoint-meta { flex: 1; }
+
+.endpoint-path {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 4px;
+  word-break: break-all;
+}
+
+.endpoint-name {
+  font-size: 13px;
+  color: var(--text2);
+}
+
+.endpoint-tags {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.etag {
+  font-family: var(--mono);
+  font-size: 9px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  color: var(--text3);
+  background: var(--surface2);
+  letter-spacing: 0.3px;
+}
+
+.etag.auth-required { background: #fff8e6; border-color: #f5d97a; color: #7a5a00; }
+
+.expand-icon {
+  font-size: 16px;
+  color: var(--text3);
+  transition: transform .2s;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.endpoint-card.open .expand-icon { transform: rotate(180deg); }
+
+.endpoint-body {
+  display: none;
+}
+
+.endpoint-card.open .endpoint-body { display: block; }
+
+/* Inside endpoint body */
+.ep-section {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.ep-section:last-child { border-bottom: none; }
+
+.ep-section-title {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ep-section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Field table */
+.field-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.field-table th {
+  text-align: left;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text3);
+  padding: 8px 10px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+}
+
+.field-table th:first-child { border-radius: 6px 0 0 0; }
+.field-table th:last-child { border-radius: 0 6px 0 0; }
+
+.field-table td {
+  padding: 10px 10px;
+  border: 1px solid var(--border);
+  vertical-align: top;
+  border-top: none;
+}
+
+.field-table tr:last-child td:first-child { border-radius: 0 0 0 6px; }
+.field-table tr:last-child td:last-child { border-radius: 0 0 6px 0; }
+
+.field-name {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.field-type {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+}
+
+.field-required {
+  font-size: 9px;
+  font-family: var(--mono);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
+.req { background: #fff0f0; color: var(--delete); border: 1px solid #fca5a5; }
+.opt { background: var(--surface2); color: var(--text3); border: 1px solid var(--border); }
+
+.field-desc { font-size: 12px; color: var(--text2); }
+
+/* Code block */
+.code-block {
+  background: #1a1916;
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.65;
+}
+
+.code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #111110;
+  border-bottom: 1px solid #2a2a28;
+}
+
+.code-lang {
+  font-size: 10px;
+  color: #666;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.code-copy {
+  font-size: 10px;
+  color: #666;
+  background: none;
+  border: 1px solid #333;
+  padding: 2px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: all .15s;
+}
+
+.code-copy:hover { color: #aaa; border-color: #555; }
+
+.code-body {
+  padding: 16px;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* JSON highlight */
+.jk { color: #7dd3fc; }
+.js { color: #86efac; }
+.jn { color: #fca5a5; }
+.jb { color: #c084fc; }
+.jl { color: #6b7280; }
+
+/* Status code badge */
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.status-code {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 5px;
+}
+
+.s200 { background: var(--get-bg); color: var(--get); border: 1px solid var(--get-border); }
+.s201 { background: #e8f0ff; color: #1a4fa0; border: 1px solid #b3c8ee; }
+.s400 { background: var(--put-bg); color: var(--put); border: 1px solid var(--put-border); }
+.s401 { background: var(--delete-bg); color: var(--delete); border: 1px solid var(--delete-border); }
+.s403 { background: var(--patch-bg); color: var(--patch); border: 1px solid var(--patch-border); }
+.s404 { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
+
+.status-text { font-size: 13px; color: var(--text2); }
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 48px 0 0;
+}
+
+/* Overview info box */
+.info-box {
+  background: #eff4ff;
+  border: 1px solid #c7d9f8;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+}
+
+.info-box-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--post);
+  margin-bottom: 6px;
+}
+
+.info-box p { font-size: 13px; color: #334e8a; line-height: 1.6; }
+
+/* Permission table */
+.perm-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.perm-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.perm-card-head {
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+}
+
+.ph-admin   { background: #f3edfb; color: var(--patch); }
+.ph-manager { background: var(--put-bg); color: var(--put); }
+.ph-member  { background: var(--get-bg); color: var(--get); }
+.ph-viewer  { background: var(--surface2); color: var(--text2); }
+
+.perm-card-body { padding: 10px 14px; background: var(--surface); }
+
+.perm-item {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text2);
+  padding: 3px 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.perm-item::before { content: '✓'; color: var(--get); font-size: 10px; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 10px; }
+
+/* Print / responsive */
+@media print {
+  .sidebar { display: none; }
+  .layout { grid-template-columns: 1fr; }
+  .endpoint-body { display: block !important; }
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ── SIDEBAR ── -->
+<nav class="sidebar">
+  <div class="sidebar-top">
+    <div class="sidebar-brand">Task Management</div>
+    <div class="sidebar-sub">REST API Documentation</div>
+    <div class="sidebar-version">v1.0.0</div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Overview</div>
+    <a class="nav-item" href="#overview"><span class="nav-label">Introduction</span></a>
+    <a class="nav-item" href="#auth-overview"><span class="nav-label">Authentication</span></a>
+    <a class="nav-item" href="#roles"><span class="nav-label">Roles & Permissions</span></a>
+    <a class="nav-item" href="#errors"><span class="nav-label">Error Handling</span></a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Auth Endpoints</div>
+    <a class="nav-item" href="#ep-register">
+      <span class="nav-method nm-post">POST</span>
+      <span class="nav-label">Register</span>
+    </a>
+    <a class="nav-item" href="#ep-login">
+      <span class="nav-method nm-post">POST</span>
+      <span class="nav-label">Login</span>
+    </a>
+    <a class="nav-item" href="#ep-me">
+      <span class="nav-method nm-get">GET</span>
+      <span class="nav-label">Get Current User</span>
+    </a>
+    <a class="nav-item" href="#ep-logout">
+      <span class="nav-method nm-post">POST</span>
+      <span class="nav-label">Logout</span>
+    </a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Task Endpoints</div>
+    <a class="nav-item" href="#ep-get-tasks">
+      <span class="nav-method nm-get">GET</span>
+      <span class="nav-label">Get All Tasks</span>
+    </a>
+    <a class="nav-item" href="#ep-create-task">
+      <span class="nav-method nm-post">POST</span>
+      <span class="nav-label">Create Task</span>
+    </a>
+    <a class="nav-item" href="#ep-get-task">
+      <span class="nav-method nm-get">GET</span>
+      <span class="nav-label">Get Task by ID</span>
+    </a>
+    <a class="nav-item" href="#ep-update-task">
+      <span class="nav-method nm-put">PUT</span>
+      <span class="nav-label">Update Task</span>
+    </a>
+    <a class="nav-item" href="#ep-patch-status">
+      <span class="nav-method nm-patch">PATCH</span>
+      <span class="nav-label">Update Status</span>
+    </a>
+    <a class="nav-item" href="#ep-assign">
+      <span class="nav-method nm-patch">PATCH</span>
+      <span class="nav-label">Assign Task</span>
+    </a>
+    <a class="nav-item" href="#ep-delete-task">
+      <span class="nav-method nm-delete">DEL</span>
+      <span class="nav-label">Delete Task</span>
+    </a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">User Endpoints</div>
+    <a class="nav-item" href="#ep-get-users">
+      <span class="nav-method nm-get">GET</span>
+      <span class="nav-label">Get All Users</span>
+    </a>
+    <a class="nav-item" href="#ep-update-role">
+      <span class="nav-method nm-patch">PATCH</span>
+      <span class="nav-label">Update User Role</span>
+    </a>
+    <a class="nav-item" href="#ep-delete-user">
+      <span class="nav-method nm-delete">DEL</span>
+      <span class="nav-label">Delete User</span>
+    </a>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="base-url-display">
+      <strong>Base URL</strong>
+      http://localhost:5001
+    </div>
+  </div>
+</nav>
+
+<!-- ── MAIN CONTENT ── -->
+<main class="main">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-eyebrow">REST API · v1.0.0 · JSON</div>
+    <h1 class="hero-title">Task Management<br><em>System API</em></h1>
+    <p class="hero-desc">Complete API reference for the Task Management System. Includes authentication, full CRUD task management, role-based access control, and user administration.</p>
+    <div class="hero-meta">
+      <div class="hero-chip"><div class="chip-dot"></div> Server Running</div>
+      <div class="hero-chip"><span class="chip-key">BASE URL</span><span class="chip-val">http://localhost:5001</span></div>
+      <div class="hero-chip"><span class="chip-key">AUTH</span><span class="chip-val">JWT Bearer Token</span></div>
+      <div class="hero-chip"><span class="chip-key">FORMAT</span><span class="chip-val">application/json</span></div>
+      <div class="hero-chip"><span class="chip-key">ENDPOINTS</span><span class="chip-val">11 total</span></div>
+    </div>
+  </div>
+
+  <div class="content-area">
+
+    <!-- OVERVIEW -->
+    <div class="section" id="overview">
+      <a class="section-anchor" id="overview-anchor"></a>
+      <div class="section-group-label">Overview</div>
+      <h2 class="section-title">Introduction</h2>
+      <p class="section-desc">The Task Management System API is a RESTful API that returns JSON. All requests must include <code style="font-family:var(--mono);font-size:12px;background:var(--surface2);padding:1px 5px;border-radius:3px">Content-Type: application/json</code> in the request headers for endpoints that accept a body.</p>
+
+      <div class="info-box">
+        <div class="info-box-title">Request Format</div>
+        <p>All POST / PUT / PATCH requests must send a JSON body. All protected routes require the <strong>Authorization: Bearer &lt;token&gt;</strong> header. The token is obtained from the <strong>Login</strong> endpoint.</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-lang">Example — every authenticated request</span>
+          <button class="code-copy" onclick="copyCode(this)">Copy</button>
+        </div>
+        <div class="code-body"><span class="jk">GET</span> http://localhost:5001/api/tasks
+<span class="jk">Content-Type:</span> <span class="js">application/json</span>
+<span class="jk">Authorization:</span> <span class="js">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</span></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- AUTH OVERVIEW -->
+    <div class="section" id="auth-overview">
+      <div class="section-group-label">Overview</div>
+      <h2 class="section-title">Authentication</h2>
+      <p class="section-desc">This API uses JWT (JSON Web Tokens) for authentication. After logging in, include the token in all subsequent requests using the Bearer scheme.</p>
+
+      <div class="code-block" style="margin-bottom:16px">
+        <div class="code-block-header">
+          <span class="code-lang">Token payload structure (decoded)</span>
+          <button class="code-copy" onclick="copyCode(this)">Copy</button>
+        </div>
+        <div class="code-body">{
+  <span class="jk">"userId"</span>: <span class="jn">4</span>,
+  <span class="jk">"email"</span>: <span class="js">"saurav@example.com"</span>,
+  <span class="jk">"roleId"</span>: <span class="jn">1</span>,
+  <span class="jk">"iat"</span>: <span class="jn">1775074963</span>,
+  <span class="jk">"exp"</span>: <span class="jn">1775679763</span>
+}</div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-lang">Token usage in header</span>
+          <button class="code-copy" onclick="copyCode(this)">Copy</button>
+        </div>
+        <div class="code-body"><span class="jk">Authorization:</span> <span class="js">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImVtYWlsIjoic2F1cmF2QGV4YW1wbGUuY29tIiwicm9sZUlkIjoxLCJpYXQiOjE3NzUwNzQ5NjMsImV4cCI6MTc3NTY3OTc2M30.d49o-XTQtLzgpRClDLqAnSiu4B0ZUyG4a60RZT03YvQ</span></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ROLES -->
+    <div class="section" id="roles">
+      <div class="section-group-label">Overview</div>
+      <h2 class="section-title">Roles & Permissions</h2>
+      <p class="section-desc">Every user is assigned a role. The role determines what API actions they can perform. Roles are returned in the login response under <code style="font-family:var(--mono);font-size:12px;background:var(--surface2);padding:1px 5px;border-radius:3px">user.role.permissions</code>.</p>
+
+      <div class="perm-grid">
+        <div class="perm-card">
+          <div class="perm-card-head ph-admin">Admin</div>
+          <div class="perm-card-body">
+            <div class="perm-item">users:create</div>
+            <div class="perm-item">users:read</div>
+            <div class="perm-item">users:update</div>
+            <div class="perm-item">users:delete</div>
+            <div class="perm-item">tasks:create</div>
+            <div class="perm-item">tasks:read:all</div>
+            <div class="perm-item">tasks:update:all</div>
+            <div class="perm-item">tasks:delete:all</div>
+            <div class="perm-item">tasks:assign</div>
+            <div class="perm-item">roles:manage</div>
+          </div>
+        </div>
+        <div class="perm-card">
+          <div class="perm-card-head ph-manager">Manager</div>
+          <div class="perm-card-body">
+            <div class="perm-item">tasks:create</div>
+            <div class="perm-item">tasks:read:all</div>
+            <div class="perm-item">tasks:update:own</div>
+            <div class="perm-item">tasks:delete:own</div>
+            <div class="perm-item">tasks:assign</div>
+            <div class="perm-item">users:read</div>
+          </div>
+        </div>
+        <div class="perm-card">
+          <div class="perm-card-head ph-member">Member</div>
+          <div class="perm-card-body">
+            <div class="perm-item">tasks:create</div>
+            <div class="perm-item">tasks:read:own</div>
+            <div class="perm-item">tasks:update:own</div>
+            <div class="perm-item">tasks:delete:own</div>
+          </div>
+        </div>
+        <div class="perm-card">
+          <div class="perm-card-head ph-viewer">Viewer</div>
+          <div class="perm-card-body">
+            <div class="perm-item">tasks:read:own</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ERROR HANDLING -->
+    <div class="section" id="errors">
+      <div class="section-group-label">Overview</div>
+      <h2 class="section-title">Error Handling</h2>
+      <p class="section-desc">All errors return a consistent JSON structure. HTTP status codes indicate the type of error.</p>
+
+      <table class="field-table" style="margin-bottom:20px">
+        <thead>
+          <tr>
+            <th>Status Code</th>
+            <th>Meaning</th>
+            <th>Common Cause</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="field-name" style="color:var(--get)">200 OK</td><td class="field-desc">Success</td><td class="field-type">Request completed successfully</td></tr>
+          <tr><td class="field-name" style="color:var(--post)">201 Created</td><td class="field-desc">Resource created</td><td class="field-type">POST request succeeded</td></tr>
+          <tr><td class="field-name" style="color:var(--put)">400 Bad Request</td><td class="field-desc">Validation error</td><td class="field-type">Missing or invalid fields in request body</td></tr>
+          <tr><td class="field-name" style="color:var(--delete)">401 Unauthorized</td><td class="field-desc">Auth required</td><td class="field-type">Missing or expired JWT token</td></tr>
+          <tr><td class="field-name" style="color:var(--patch)">403 Forbidden</td><td class="field-desc">Access denied</td><td class="field-type">Role does not have permission</td></tr>
+          <tr><td class="field-name" style="color:var(--delete)">404 Not Found</td><td class="field-desc">Resource missing</td><td class="field-type">Task or user ID does not exist</td></tr>
+          <tr><td class="field-name" style="color:var(--delete)">500 Server Error</td><td class="field-desc">Internal error</td><td class="field-type">Unexpected server failure</td></tr>
+        </tbody>
+      </table>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-lang">Error response shape</span>
+          <button class="code-copy" onclick="copyCode(this)">Copy</button>
+        </div>
+        <div class="code-body">{
+  <span class="jk">"message"</span>: <span class="js">"Invalid credentials"</span>
+}</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- AUTH ENDPOINTS -->
+    <!-- ═══════════════════════════════════════ -->
+
+    <div class="section">
+      <div class="section-group-label">Auth</div>
+      <h2 class="section-title">Authentication Endpoints</h2>
+      <p class="section-desc">Register new accounts, authenticate users, and manage sessions.</p>
+
+      <!-- REGISTER -->
+      <div class="endpoint-card" id="ep-register">
+        <div class="endpoint-header" onclick="toggle(this)">
+          <span class="method-badge mb-post">POST</span>
+          <div class="endpoint-meta">
+            <div class="endpoint-path">/api/auth/register</div>
+            <div class="endpoint-name">Register a new user account</div>
+            <div class="endpoint-tags">
+              <span class="etag">No Auth Required</span>
+              <span class="etag">201 Created</span>
+            </div>
+          </div>
+          <span class="expand-icon">▾</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-section-title">Request Body</div>
+            <table class="field-table">
+              <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td class="field-name">email</td><td class="field-type">string</td><td><span class="field-required req">required</span></td><td class="field-desc">Valid email address. Must be unique.</td></tr>
+                <tr><td class="field-name">password</td><td class="field-type">string</td><td><span class="field-required req">required</span></td><td class="field-desc">Minimum 8 characters.</td></tr>
+                <tr><td class="field-name">username</td><td class="field-type">string</td><td><span class="field-required req">required</span></td><td class="field-desc">Unique username. Min 3 chars, alphanumeric.</td></tr>
+                <tr><td class="field-name">firstName</td><td class="field-type">string</td><td><span class="field-required opt">optional</span></td><td class="field-desc">User's first name.</td></tr>
+                <tr><td class="field-name">lastName</td><td class="field-type">string</td><td><span class="field-required opt">optional</span></td><td class="field-desc">User's last name.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Example Request</div>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-lang">POST /api/auth/register</span>
+                <button class="code-copy" onclick="copyCode(this)">Copy</button>
+              </div>
+              <div class="code-body">{
+  <span class="jk">"email"</span>: <span class="js">"saurav@example.com"</span>,
+  <span class="jk">"password"</span>: <span class="js">"saurav123"</span>,
+  <span class="jk">"username"</span>: <span class="js">"saurav"</span>
+}</div>
+            </div>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Response</div>
+            <div class="status-row"><span class="status-code s201">201 Created</span><span class="status-text">User registered successfully</span></div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">Response Body</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+              <div class="code-body">{
+  <span class="jk">"message"</span>: <span class="js">"User registered successfully"</span>,
+  <span class="jk">"user"</span>: {
+    <span class="jk">"id"</span>: <span class="jn">4</span>,
+    <span class="jk">"email"</span>: <span class="js">"saurav@example.com"</span>,
+    <span class="jk">"username"</span>: <span class="js">"saurav"</span>,
+    <span class="jk">"role"</span>: {
+      <span class="jk">"id"</span>: <span class="jn">3</span>,
+      <span class="jk">"name"</span>: <span class="js">"Member"</span>
+    }
+  }
+}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOGIN -->
+      <div class="endpoint-card open" id="ep-login">
+        <div class="endpoint-header" onclick="toggle(this)">
+          <span class="method-badge mb-post">POST</span>
+          <div class="endpoint-meta">
+            <div class="endpoint-path">/api/auth/login</div>
+            <div class="endpoint-name">Authenticate and get JWT token</div>
+            <div class="endpoint-tags">
+              <span class="etag">No Auth Required</span>
+              <span class="etag">200 OK</span>
+              <span class="etag" style="background:#e8f5ee;border-color:#b5dfc7;color:var(--get)">Returns JWT Token</span>
+            </div>
+          </div>
+          <span class="expand-icon">▾</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-section-title">Request Body</div>
+            <table class="field-table">
+              <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td class="field-name">email</td><td class="field-type">string</td><td><span class="field-required req">required</span></td><td class="field-desc">Registered email address.</td></tr>
+                <tr><td class="field-name">password</td><td class="field-type">string</td><td><span class="field-required req">required</span></td><td class="field-desc">Account password.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Example Request</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">POST /api/auth/login</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+              <div class="code-body">{
+  <span class="jk">"email"</span>: <span class="js">"saurav@example.com"</span>,
+  <span class="jk">"password"</span>: <span class="js">"saurav123"</span>
+}</div>
+            </div>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Response</div>
+            <div class="status-row"><span class="status-code s200">200 OK</span><span class="status-text">Login successful</span></div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">Response Body — tested on localhost:5001</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+              <div class="code-body">{
+  <span class="jk">"message"</span>: <span class="js">"Login successful"</span>,
+  <span class="jk">"token"</span>: <span class="js">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImVtYWlsIjoic2F1cmF2QGV4YW1wbGUuY29tIiwicm9sZUlkIjoxLCJpYXQiOjE3NzUwNzQ5NjMsImV4cCI6MTc3NTY3OTc2M30.d49o-XTQtLzgpRClDLqAnSiu4B0ZUyG4a60RZT03YvQ"</span>,
+  <span class="jk">"user"</span>: {
+    <span class="jk">"id"</span>: <span class="jn">4</span>,
+    <span class="jk">"email"</span>: <span class="js">"saurav@example.com"</span>,
+    <span class="jk">"username"</span>: <span class="js">"saurav"</span>,
+    <span class="jk">"role"</span>: {
+      <span class="jk">"id"</span>: <span class="jn">1</span>,
+      <span class="jk">"name"</span>: <span class="js">"Admin"</span>,
+      <span class="jk">"permissions"</span>: [
+        <span class="js">"users:create"</span>, <span class="js">"users:read"</span>, <span class="js">"users:update"</span>, <span class="js">"users:delete"</span>,
+        <span class="js">"tasks:create"</span>, <span class="js">"tasks:read:all"</span>, <span class="js">"tasks:read:own"</span>,
+        <span class="js">"tasks:update:all"</span>, <span class="js">"tasks:update:own"</span>,
+        <span class="js">"tasks:delete:all"</span>, <span class="js">"tasks:delete:own"</span>,
+        <span class="js">"tasks:assign"</span>, <span class="js">"roles:manage"</span>
+      ]
+    }
+  }
+}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GET ME -->
+      <div class="endpoint-card" id="ep-me">
+        <div class="endpoint-header" onclick="toggle(this)">
+          <span class="method-badge mb-get">GET</span>
+          <div class="endpoint-meta">
+            <div class="endpoint-path">/api/auth/me</div>
+            <div class="endpoint-name">Get currently authenticated user</div>
+            <div class="endpoint-tags">
+              <span class="etag auth-required">Auth Required</span>
+              <span class="etag">200 OK</span>
+            </div>
+          </div>
+          <span class="expand-icon">▾</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-section-title">Headers</div>
+            <table class="field-table">
+              <thead><tr><th>Header</th><th>Value</th><th>Required</th></tr></thead>
+              <tbody>
+                <tr><td class="field-name">Authorization</td><td class="field-type">Bearer &lt;token&gt;</td><td><span class="field-required req">required</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Response</div>
+            <div class="status-row"><span class="status-code s200">200 OK</span></div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">Response Body</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+              <div class="code-body">{
+  <span class="jk">"id"</span>: <span class="jn">4</span>,
+  <span class="jk">"email"</span>: <span class="js">"saurav@example.com"</span>,
+  <span class="jk">"username"</span>: <span class="js">"saurav"</span>,
+  <span class="jk">"role"</span>: { <span class="jk">"id"</span>: <span class="jn">1</span>, <span class="jk">"name"</span>: <span class="js">"Admin"</span> }
+}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOGOUT -->
+      <div class="endpoint-card" id="ep-logout">
+        <div class="endpoint-header" onclick="toggle(this)">
+          <span class="method-badge mb-post">POST</span>
+          <div class="endpoint-meta">
+            <div class="endpoint-path">/api/auth/logout</div>
+            <div class="endpoint-name">Logout current session</div>
+            <div class="endpoint-tags">
+              <span class="etag auth-required">Auth Required</span>
+              <span class="etag">200 OK</span>
+            </div>
+          </div>
+          <span class="expand-icon">▾</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-section-title">Notes</div>
+            <p style="font-size:13px;color:var(--text2);line-height:1.7">No request body needed. The server invalidates the session. The client must clear the stored JWT token. Returns a success message.</p>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Response</div>
+            <div class="status-row"><span class="status-code s200">200 OK</span></div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">Response Body</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+              <div class="code-body">{
+  <span class="jk">"message"</span>: <span class="js">"Logged out successfully"</span>
+}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- TASK ENDPOINTS -->
+    <!-- ═══════════════════════════════════════ -->
+
+    <div class="section">
+      <div class="section-group-label">Tasks</div>
+      <h2 class="section-title">Task Endpoints</h2>
+      <p class="section-desc">Create, read, update, delete, and assign tasks. All task endpoints require authentication. Visibility of tasks depends on the user's role.</p>
+
+      <!-- GET ALL TASKS -->
+      <div class="endpoint-card open" id="ep-get-tasks">
+        <div class="endpoint-header" onclick="toggle(this)">
+          <span class="method-badge mb-get">GET</span>
+          <div class="endpoint-meta">
+            <div class="endpoint-path">/api/tasks</div>
+            <div class="endpoint-name">Get all tasks (role-filtered)</div>
+            <div class="endpoint-tags">
+              <span class="etag auth-required">Auth Required</span>
+              <span class="etag">200 OK</span>
+              <span class="etag">Admin sees all · Member sees own</span>
+            </div>
+          </div>
+          <span class="expand-icon">▾</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-section-title">Query Parameters</div>
+            <table class="field-table">
+              <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td class="field-name">status</td><td class="field-type">string</td><td><span class="field-required opt">optional</span></td><td class="field-desc">Filter by status: <code style="font-family:var(--mono);font-size:11px">TODO</code> · <code style="font-family:var(--mono);font-size:11px">IN_PROGRESS</code> · <code style="font-family:var(--mono);font-size:11px">COMPLETED</code></td></tr>
+                <tr><td class="field-name">priority</td><td class="field-type">string</td><td><span class="field-required opt">optional</span></td><td class="field-desc">Filter by priority: <code style="font-family:var(--mono);font-size:11px">LOW</code> · <code style="font-family:var(--mono);font-size:11px">MEDIUM</code> · <code style="font-family:var(--mono);font-size:11px">HIGH</code></td></tr>
+                <tr><td class="field-name">assigneeId</td><td class="field-type">number</td><td><span class="field-required opt">optional</span></td><td class="field-desc">Filter by assigned user ID. Admin/Manager only.</td></tr>
+                <tr><td class="field-name">search</td><td class="field-type">string</td><td><span class="field-required opt">optional</span></td><td class="field-desc">Search keyword in task title or description.</td></tr>
+                <tr><td class="field-name">page</td><td class="field-type">number</td><td><span class="field-required opt">optional</span></td><td class="field-desc">Page number for pagination. Default: 1</td></tr>
+                <tr><td class="field-name">limit</td><td class="field-type">number</td><td><span class="field-required opt">optional</span></td><td class="field-desc">Results per page. Default: 10</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Response</div>
+            <div class="status-row"><span class="status-code s200">200 OK</span><span class="status-text">Returns array of task objects with owner and assignee</span></div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">GET /api/tasks — actual response from localhost:5001</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+              <div class="code-body">{
+  <span class="jk">"tasks"</span>: [
+    {
+      <span class="jk">"id"</span>: <span class="jn">12</span>,
+      <span class="jk">"title"</span>: <span class="js">"Bug fixes"</span>,
+      <span class="jk">"description"</span>: <span class="js">"Fix reported bugs from testing"</span>,
+      <span class="jk">"status"</span>: <span class="js">"TODO"</span>,
+      <span class="jk">"priority"</span>: <span class="js">"HIGH"</span>,
+      <span class="jk">"userId"</span>: <span class="jn">8</span>,
+      <span class="jk">"assignedTo"</span>: <span class="jl">null</span>,
+      <span class="jk">"dueDate"</span>: <span class="js">"2026-04-13T20:07:00.452Z"</span>,
+      <span class="jk">"createdAt"</span>: <span class="js">"2026-04-01T20:07:00.454Z"</span>,
+      <span class="jk">"updatedAt"</span>: <span class="js">"2026-04-01T20:07:00.454Z"</span>,
+      <span class="jk">"user"</span>: {
+        <span class="jk">"id"</span>: <span class="jn">8</span>,
+        <span class="jk">"username"</span>: <span class="js">"meet"</span>,
+        <span class="jk">"email"</span>: <span class="js">"meet@example.com"</span>
+      },
+      <span class="jk">"assignee"</span>: <span class="jl">null</span>
+    },
+    {
+      <span class="jk">"id"</span>: <span class="jn">11</span>,
+      <span class="jk">"title"</span>: <span class="js">"Code review"</span>,
+      <span class="jk">"description"</span>: <span class="js">"Review code for best practices"</span>,
+      <span class="jk">"status"</span>: <span class="js">"IN_PROGRESS"</span>,
+      <span class="jk">"priority"</span>: <span class="js">"MEDIUM"</span>,
+      <span class="jk">"userId"</span>: <span class="jn">7</span>,
+      <span class="jk">"assignedTo"</span>: <span class="jn">8</span>,
+      <span class="jk">"dueDate"</span>: <span class="js">"2026-04-12T20:07:00.400Z"</span>,
+      <span class="jk">"createdAt"</span>: <span class="js">"2026-04-01T20:07:00.402Z"</span>,
+      <span class="jk">"updatedAt"</span>: <span class="js">"2026-04-01T20:07:00.402Z"</span>,
+      <span class="jk">"user"</span>: {
+        <span class="jk">"id"</span>: <span class="jn">7</span>,
+        <span class="jk">"username"</span>: <span class="js">"raju"</span>,
+        <span class="jk">"email"</span>: <span class="js">"raju@example.com"</span>
+      },
+      <span class="jk">"assignee"</span>: {
+        <span class="jk">"id"</span>: <span class="jn">8</span>,
+        <span class="jk">"username"</span>: <span class="js">"meet"</span>,
+        <span class="jk">"email"</span>: <span class="js">"meet@example.com"</span>
+      }
+    }
+    <span class="jl">// ... 10 more tasks</span>
+  ]
+}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CREATE TASK -->
+      <div class="endpoint-card open" id="ep-create-task">
+        <div class="endpoint-header" onclick="toggle(this)">
+          <span class="method-badge mb-post">POST</span>
+          <div class="endpoint-meta">
+            <div class="endpoint-path">/api/tasks</div>
+            <div class="endpoint-name">Create a new task</div>
+            <div class="endpoint-tags">
+              <span class="etag auth-required">Auth Required</span>
+              <span class="etag">201 Created</span>
+              <span class="etag">Admin · Manager · Member</span>
+            </div>
+          </div>
+          <span class="expand-icon">▾</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-section-title">Request Body</div>
+            <table class="field-table">
+              <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td class="field-name">title</td><td class="field-type">string</td><td><span class="field-required req">required</span></td><td class="field-desc">Task title. Min 3 chars, max 150.</td></tr>
+                <tr><td class="field-name">description</td><td class="field-type">string</td><td><span class="field-required opt">optional</span></td><td class="field-desc">Detailed task description.</td></tr>
+                <tr><td class="field-name">priority</td><td class="field-type">string</td><td><span class="field-required req">required</span></td><td class="field-desc"><code style="font-family:var(--mono);font-size:11px">LOW</code> · <code style="font-family:var(--mono);font-size:11px">MEDIUM</code> · <code style="font-family:var(--mono);font-size:11px">HIGH</code></td></tr>
+                <tr><td class="field-name">status</td><td class="field-type">string</td><td><span class="field-required opt">optional</span></td><td class="field-desc">Default: <code style="font-family:var(--mono);font-size:11px">TODO</code>. Options: <code style="font-family:var(--mono);font-size:11px">TODO</code> · <code style="font-family:var(--mono);font-size:11px">IN_PROGRESS</code> · <code style="font-family:var(--mono);font-size:11px">COMPLETED</code></td></tr>
+                <tr><td class="field-name">dueDate</td><td class="field-type">ISO 8601 date</td><td><span class="field-required opt">optional</span></td><td class="field-desc">Due date. Must be today or in the future.</td></tr>
+                <tr><td class="field-name">assignedTo</td><td class="field-type">number</td><td><span class="field-required opt">optional</span></td><td class="field-desc">User ID to assign the task to. Admin/Manager only.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Example Request</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">POST /api/tasks</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+              <div class="code-body">{
+  <span class="jk">"title"</span>: <span class="js">"Test"</span>,
+  <span class="jk">"priority"</span>: <span class="js">"HIGH"</span>,
+  <span class="jk">"status"</span>: <span class="js">"TODO"</span>
+}</div>
+            </div>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Response</div>
+            <div class="status-row"><span class="status-code s201">201 Created</span><span class="status-text">Task created successfully</span></div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">POST /api/tasks — actual response from localhost:5001</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+              <div class="code-body">{
+  <span class="jk">"message"</span>: <span class="js">"Task created"</span>,
+  <span class="jk">"task"</span>: {
+    <span class="jk">"id"</span>: <span class="jn">13</span>,
+    <span class="jk">"title"</span>: <span class="js">"Test"</span>,
+    <span class="jk">"description"</span>: <span class="jl">null</span>,
+    <span class="jk">"status"</span>: <span class="js">"TODO"</span>,
+    <span class="jk">"priority"</span>: <span class="js">"HIGH"</span>,
+    <span class="jk">"userId"</span>: <span class="jn">4</span>,
+    <span class="jk">"assignedTo"</span>: <span class="jl">null</span>,
+    <span class="jk">"dueDate"</span>: <span class="jl">null</span>,
+    <span class="jk">"createdAt"</span>: <span class="js">"2026-04-01T20:54:49.763Z"</span>,
+    <span class="jk">"updatedAt"</span>: <span class="js">"2026-04-01T20:54:49.763Z"</span>,
+    <span class="jk">"user"</span>: {
+      <span class="jk">"id"</span>: <span class="jn">4</span>,
+      <span class="jk">"username"</span>: <span class="js">"saurav"</span>,
+      <span class="jk">"email"</span>: <span class="js">"saurav@example.com"</span>
+    },
+    <span class="jk">"assignee"</span>: <span class="jl">null</span>
+  }
+}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GET TASK BY ID -->
+      <div class="endpoint-card" id="ep-get-task">
+        <div class="endpoint-header" onclick="toggle(this)">
+          <span class="method-badge mb-get">GET</span>
+          <div class="endpoint-meta">
+            <div class="endpoint-path">/api/tasks/<span style="color:var(--patch)">:id</span></div>
+            <div class="endpoint-name">Get a single task by ID</div>
+            <div class="endpoint-tags">
+              <span class="etag auth-required">Auth Required</span>
+              <span class="etag">200 OK</span>
+            </div>
+          </div>
+          <span class="expand-icon">▾</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-section-title">Path Parameters</div>
+            <table class="field-table">
+              <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td class="field-name">id</td><td class="field-type">number</td><td><span class="field-required req">required</span></td><td class="field-desc">The task ID from the database.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Response</div>
+            <div class="status-row"><span class="status-code s200">200 OK</span></div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">GET /api/tasks/1</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+              <div class="code-body">{
+  <span class="jk">"id"</span>: <span class="jn">1</span>,
+  <span class="jk">"title"</span>: <span class="js">"Setup project structure"</span>,
+  <span class="jk">"description"</span>: <span class="js">"Initialize the project with React and Node.js"</span>,
+  <span class="jk">"status"</span>: <span class="js">"COMPLETED"</span>,
+  <span class="jk">"priority"</span>: <span class="js">"HIGH"</span>,
+  <span class="jk">"userId"</span>: <span class="jn">4</span>,
+  <span class="jk">"assignedTo"</span>: <span class="jn">5</span>,
+  <span class="jk">"dueDate"</span>: <span class="js">"2026-04-02T20:06:58.703Z"</span>,
+  <span class="jk">"createdAt"</span>: <span class="js">"2026-04-01T20:06:58.706Z"</span>,
+  <span class="jk">"updatedAt"</span>: <span class="js">"2026-04-01T20:06:58.706Z"</span>,
+  <span class="jk">"user"</span>: { <span class="jk">"id"</span>: <span class="jn">4</span>, <span class="jk">"username"</span>: <span class="js">"saurav"</span>, <span class="jk">"email"</span>: <span class="js">"saurav@example.com"</span> },
+  <span class="jk">"assignee"</span>: { <span class="jk">"id"</span>: <span class="jn">5</span>, <span class="jk">"username"</span>: <span class="js">"prem"</span>, <span class="jk">"email"</span>: <span class="js">"prem@example.com"</span> }
+}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- UPDATE TASK -->
+      <div class="endpoint-card" id="ep-update-task">
+        <div class="endpoint-header" onclick="toggle(this)">
+          <span class="method-badge mb-put">PUT</span>
+          <div class="endpoint-meta">
+            <div class="endpoint-path">/api/tasks/<span style="color:var(--patch)">:id</span></div>
+            <div class="endpoint-name">Update an existing task</div>
+            <div class="endpoint-tags">
+              <span class="etag auth-required">Auth Required</span>
+              <span class="etag">200 OK</span>
+              <span class="etag">Admin · Manager (own) · Member (own)</span>
+            </div>
+          </div>
+          <span class="expand-icon">▾</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-section-title">Request Body</div>
+            <table class="field-table">
+              <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td class="field-name">title</td><td class="field-type">string</td><td><span class="field-required opt">optional</span></td><td class="field-desc">Updated task title.</td></tr>
+                <tr><td class="field-name">description</td><td class="field-type">string</td><td><span class="field-required opt">optional</span></td><td class="field-desc">Updated description.</td></tr>
+                <tr><td class="field-name">status</td><td class="field-type">string</td><td><span class="field-required opt">optional</span></td><td class="field-desc"><code style="font-family:var(--mono);font-size:11px">TODO</code> · <code style="font-family:var(--mono);font-size:11px">IN_PROGRESS</code> · <code style="font-family:var(--mono);font-size:11px">COMPLETED</code></td></tr>
+                <tr><td class="field-name">priority</td><td class="field-type">string</td><td><span class="field-required opt">optional</span></td><td class="field-desc"><code style="font-family:var(--mono);font-size:11px">LOW</code> · <code style="font-family:var(--mono);font-size:11px">MEDIUM</code> · <code style="font-family:var(--mono);font-size:11px">HIGH</code></td></tr>
+                <tr><td class="field-name">dueDate</td><td class="field-type">ISO 8601 date</td><td><span class="field-required opt">optional</span></td><td class="field-desc">Updated due date.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Example Request</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">PUT /api/tasks/1</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+              <div class="code-body">{
+  <span class="jk">"title"</span>: <span class="js">"Setup project structure — updated"</span>,
+  <span class="jk">"status"</span>: <span class="js">"IN_PROGRESS"</span>,
+  <span class="jk">"priority"</span>: <span class="js">"MEDIUM"</span>
+}</div>
+            </div>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Response</div>
+            <div class="status-row"><span class="status-code s200">200 OK</span></div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">Response Body</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+              <div class="code-body">{
+  <span class="jk">"message"</span>: <span class="js">"Task updated"</span>,
+  <span class="jk">"task"</span>: { <span class="jl">/* updated task object */</span> }
+}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PATCH STATUS -->
+      <div class="endpoint-card" id="ep-patch-status">
+        <div class="endpoint-header" onclick="toggle(this)">
+          <span class="method-badge mb-patch">PATCH</span>
+          <div class="endpoint-meta">
+            <div class="endpoint-path">/api/tasks/<span style="color:var(--patch)">:id</span>/status</div>
+            <div class="endpoint-name">Update task status only</div>
+            <div class="endpoint-tags">
+              <span class="etag auth-required">Auth Required</span>
+              <span class="etag">200 OK</span>
+              <span class="etag">All roles except Viewer</span>
+            </div>
+          </div>
+          <span class="expand-icon">▾</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-section-title">Request Body</div>
+            <table class="field-table">
+              <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td class="field-name">status</td><td class="field-type">string</td><td><span class="field-required req">required</span></td><td class="field-desc"><code style="font-family:var(--mono);font-size:11px">TODO</code> · <code style="font-family:var(--mono);font-size:11px">IN_PROGRESS</code> · <code style="font-family:var(--mono);font-size:11px">COMPLETED</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Example Request</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">PATCH /api/tasks/1/status</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+              <div class="code-body">{ <span class="jk">"status"</span>: <span class="js">"COMPLETED"</span> }</div>
+            </div>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Response</div>
+            <div class="status-row"><span class="status-code s200">200 OK</span></div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">Response Body</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+              <div class="code-body">{
+  <span class="jk">"message"</span>: <span class="js">"Task status updated"</span>,
+  <span class="jk">"task"</span>: { <span class="jl">/* updated task object */</span> }
+}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ASSIGN TASK -->
+      <div class="endpoint-card" id="ep-assign">
+        <div class="endpoint-header" onclick="toggle(this)">
+          <span class="method-badge mb-patch">PATCH</span>
+          <div class="endpoint-meta">
+            <div class="endpoint-path">/api/tasks/<span style="color:var(--patch)">:id</span>/assign</div>
+            <div class="endpoint-name">Assign task to a user</div>
+            <div class="endpoint-tags">
+              <span class="etag auth-required">Auth Required</span>
+              <span class="etag">200 OK</span>
+              <span class="etag">Admin · Manager only</span>
+            </div>
+          </div>
+          <span class="expand-icon">▾</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-section-title">Request Body</div>
+            <table class="field-table">
+              <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td class="field-name">assignedTo</td><td class="field-type">number</td><td><span class="field-required req">required</span></td><td class="field-desc">User ID to assign the task to. Set to <code style="font-family:var(--mono);font-size:11px">null</code> to unassign.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Example Request</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">PATCH /api/tasks/5/assign</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+              <div class="code-body">{ <span class="jk">"assignedTo"</span>: <span class="jn">8</span> }</div>
+            </div>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Response</div>
+            <div class="status-row"><span class="status-code s200">200 OK</span></div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">Response Body</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+              <div class="code-body">{
+  <span class="jk">"message"</span>: <span class="js">"Task assigned successfully"</span>,
+  <span class="jk">"task"</span>: { <span class="jl">/* updated task object */</span> }
+}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DELETE TASK -->
+      <div class="endpoint-card" id="ep-delete-task">
+        <div class="endpoint-header" onclick="toggle(this)">
+          <span class="method-badge mb-delete">DELETE</span>
+          <div class="endpoint-meta">
+            <div class="endpoint-path">/api/tasks/<span style="color:var(--patch)">:id</span></div>
+            <div class="endpoint-name">Delete a task permanently</div>
+            <div class="endpoint-tags">
+              <span class="etag auth-required">Auth Required</span>
+              <span class="etag">200 OK</span>
+              <span class="etag">Admin · Manager (own) · Member (own)</span>
+            </div>
+          </div>
+          <span class="expand-icon">▾</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-section-title">Notes</div>
+            <p style="font-size:13px;color:var(--text2);line-height:1.7">No request body required. Provide the task <code style="font-family:var(--mono);font-size:12px">id</code> in the URL. Deletion is permanent and cannot be undone. Members and Managers can only delete tasks they own.</p>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Response</div>
+            <div class="status-row"><span class="status-code s200">200 OK</span></div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">DELETE /api/tasks/13</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+              <div class="code-body">{
+  <span class="jk">"message"</span>: <span class="js">"Task deleted successfully"</span>
+}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end task section -->
+
+    <div class="divider"></div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- USER ENDPOINTS -->
+    <!-- ═══════════════════════════════════════ -->
+
+    <div class="section">
+      <div class="section-group-label">Users</div>
+      <h2 class="section-title">User Endpoints</h2>
+      <p class="section-desc">User management endpoints. Most actions restricted to Admin role only.</p>
+
+      <!-- GET ALL USERS -->
+      <div class="endpoint-card" id="ep-get-users">
+        <div class="endpoint-header" onclick="toggle(this)">
+          <span class="method-badge mb-get">GET</span>
+          <div class="endpoint-meta">
+            <div class="endpoint-path">/api/users</div>
+            <div class="endpoint-name">Get all registered users</div>
+            <div class="endpoint-tags">
+              <span class="etag auth-required">Auth Required</span>
+              <span class="etag">200 OK</span>
+              <span class="etag">Admin only</span>
+            </div>
+          </div>
+          <span class="expand-icon">▾</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-section-title">Response</div>
+            <div class="status-row"><span class="status-code s200">200 OK</span></div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">GET /api/users</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+              <div class="code-body">{
+  <span class="jk">"users"</span>: [
+    {
+      <span class="jk">"id"</span>: <span class="jn">4</span>,
+      <span class="jk">"username"</span>: <span class="js">"saurav"</span>,
+      <span class="jk">"email"</span>: <span class="js">"saurav@example.com"</span>,
+      <span class="jk">"role"</span>: { <span class="jk">"id"</span>: <span class="jn">1</span>, <span class="jk">"name"</span>: <span class="js">"Admin"</span> },
+      <span class="jk">"createdAt"</span>: <span class="js">"2026-04-01T20:06:58.700Z"</span>
+    },
+    <span class="jl">// ... more users</span>
+  ]
+}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- UPDATE ROLE -->
+      <div class="endpoint-card" id="ep-update-role">
+        <div class="endpoint-header" onclick="toggle(this)">
+          <span class="method-badge mb-patch">PATCH</span>
+          <div class="endpoint-meta">
+            <div class="endpoint-path">/api/users/<span style="color:var(--patch)">:id</span>/role</div>
+            <div class="endpoint-name">Change a user's role</div>
+            <div class="endpoint-tags">
+              <span class="etag auth-required">Auth Required</span>
+              <span class="etag">200 OK</span>
+              <span class="etag">Admin only</span>
+            </div>
+          </div>
+          <span class="expand-icon">▾</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-section-title">Request Body</div>
+            <table class="field-table">
+              <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td class="field-name">roleId</td><td class="field-type">number</td><td><span class="field-required req">required</span></td><td class="field-desc">Role ID to assign. 1=Admin, 2=Manager, 3=Member, 4=Viewer.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Example Request</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">PATCH /api/users/6/role</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+              <div class="code-body">{ <span class="jk">"roleId"</span>: <span class="jn">2</span> }</div>
+            </div>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Response</div>
+            <div class="status-row"><span class="status-code s200">200 OK</span></div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">Response Body</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+              <div class="code-body">{
+  <span class="jk">"message"</span>: <span class="js">"User role updated"</span>,
+  <span class="jk">"user"</span>: {
+    <span class="jk">"id"</span>: <span class="jn">6</span>,
+    <span class="jk">"username"</span>: <span class="js">"dev"</span>,
+    <span class="jk">"email"</span>: <span class="js">"dev@example.com"</span>,
+    <span class="jk">"role"</span>: { <span class="jk">"id"</span>: <span class="jn">2</span>, <span class="jk">"name"</span>: <span class="js">"Manager"</span> }
+  }
+}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DELETE USER -->
+      <div class="endpoint-card" id="ep-delete-user">
+        <div class="endpoint-header" onclick="toggle(this)">
+          <span class="method-badge mb-delete">DELETE</span>
+          <div class="endpoint-meta">
+            <div class="endpoint-path">/api/users/<span style="color:var(--patch)">:id</span></div>
+            <div class="endpoint-name">Delete a user account</div>
+            <div class="endpoint-tags">
+              <span class="etag auth-required">Auth Required</span>
+              <span class="etag">200 OK</span>
+              <span class="etag">Admin only</span>
+            </div>
+          </div>
+          <span class="expand-icon">▾</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-section-title">Notes</div>
+            <p style="font-size:13px;color:var(--text2);line-height:1.7">Deletes the user permanently. Tasks owned by the user will be reassigned or nullified depending on server configuration. Admin cannot delete their own account.</p>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Response</div>
+            <div class="status-row"><span class="status-code s200">200 OK</span></div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">DELETE /api/users/10</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+              <div class="code-body">{
+  <span class="jk">"message"</span>: <span class="js">"User deleted successfully"</span>
+}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end users section -->
+
+  </div><!-- end content-area -->
+</main>
+
+</div><!-- end layout -->
+
+<script>
+function toggle(header) {
+  const card = header.closest('.endpoint-card');
+  card.classList.toggle('open');
+}
+
+function copyCode(btn) {
+  const block = btn.closest('.code-block').querySelector('.code-body');
+  const text = block.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 2000);
+  });
+}
+
+// Highlight active nav item on scroll
+const sections = document.querySelectorAll('[id^="ep-"], #overview, #auth-overview, #roles, #errors');
+const navItems = document.querySelectorAll('.nav-item');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navItems.forEach(n => {
+        n.classList.remove('active');
+        if (n.getAttribute('href') === '#' + id) n.classList.add('active');
+      });
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

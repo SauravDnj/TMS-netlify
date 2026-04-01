@@ -1,0 +1,2289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management System - Documentation</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <span class="logo-icon">📋</span>
+                <span class="logo-text">TMS Docs</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#overview" class="nav-link active">
+                    <span class="nav-icon">🏠</span>
+                    Overview
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#tech-stack" class="nav-link">
+                    <span class="nav-icon">🛠️</span>
+                    Tech Stack
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#architecture" class="nav-link">
+                    <span class="nav-icon">🏗️</span>
+                    Architecture
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#jwt-authentication" class="nav-link">
+                    <span class="nav-icon">🔐</span>
+                    JWT Authentication
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#database" class="nav-link">
+                    <span class="nav-icon">🗄️</span>
+                    Database Schema
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#api-endpoints" class="nav-link">
+                    <span class="nav-icon">🔌</span>
+                    API Endpoints
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#rbac" class="nav-link">
+                    <span class="nav-icon">👥</span>
+                    RBAC System
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#system-flow" class="nav-link">
+                    <span class="nav-icon">🔄</span>
+                    System Flow
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#setup" class="nav-link">
+                    <span class="nav-icon">⚙️</span>
+                    Setup Guide
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Overview Section -->
+        <section id="overview" class="section">
+            <div class="section-header">
+                <h1>Task Management System</h1>
+                <p class="subtitle">Complete Documentation & Technical Reference</p>
+            </div>
+
+            <div class="card highlight-card">
+                <h2>📋 Project Overview</h2>
+                <p>A full-stack task management application with <strong>Role-Based Access Control (RBAC)</strong> that enables organizations to manage tasks efficiently with different permission levels for Admin, Manager, and User roles.</p>
+                
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <span class="feature-icon">🔐</span>
+                        <h4>JWT Authentication</h4>
+                        <p>Secure token-based authentication with 7-day expiration</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">👥</span>
+                        <h4>RBAC System</h4>
+                        <p>Three roles with granular permissions</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📝</span>
+                        <h4>Task Management</h4>
+                        <p>Full CRUD with filtering and assignment</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🎨</span>
+                        <h4>Modern UI</h4>
+                        <p>React with Tailwind CSS responsive design</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3>🎯 Key Capabilities</h3>
+                <ul>
+                    <li><strong>User Registration & Login</strong> - Secure authentication with password hashing</li>
+                    <li><strong>Task CRUD Operations</strong> - Create, read, update, delete tasks</li>
+                    <li><strong>Role-based Permissions</strong> - Different access levels for each role</li>
+                    <li><strong>Task Assignment</strong> - Managers can assign tasks to team members</li>
+                    <li><strong>Admin Impersonation</strong> - Admin can login as any user for testing</li>
+                    <li><strong>Task Filtering</strong> - Filter by status, priority, and assignee</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Tech Stack Section -->
+        <section id="tech-stack" class="section">
+            <div class="section-header">
+                <h1>🛠️ Technology Stack</h1>
+                <p class="subtitle">Why We Chose These Technologies</p>
+            </div>
+
+            <!-- Frontend Technologies -->
+            <div class="card">
+                <h2>Frontend Technologies</h2>
+                
+                <div class="tech-item">
+                    <div class="tech-header">
+                        <span class="tech-logo">⚛️</span>
+                        <h3>React 18</h3>
+                        <span class="tech-badge">UI Library</span>
+                    </div>
+                    <div class="tech-content">
+                        <h4>Why React?</h4>
+                        <ul>
+                            <li><strong>Component-Based Architecture:</strong> Build encapsulated components that manage their own state, making code reusable and maintainable</li>
+                            <li><strong>Virtual DOM:</strong> React's virtual DOM ensures efficient updates, only re-rendering components that actually changed</li>
+                            <li><strong>Large Ecosystem:</strong> Massive community support, extensive libraries, and excellent documentation</li>
+                            <li><strong>React Hooks:</strong> Modern state management with useState, useEffect, useContext for cleaner functional components</li>
+                            <li><strong>Industry Standard:</strong> Used by Facebook, Netflix, Airbnb - proven at scale</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tech-item">
+                    <div class="tech-header">
+                        <span class="tech-logo">⚡</span>
+                        <h3>Vite</h3>
+                        <span class="tech-badge">Build Tool</span>
+                    </div>
+                    <div class="tech-content">
+                        <h4>Why Vite over Create React App?</h4>
+                        <ul>
+                            <li><strong>Lightning Fast HMR:</strong> Hot Module Replacement in milliseconds, not seconds</li>
+                            <li><strong>Native ES Modules:</strong> No bundling during development = instant server start</li>
+                            <li><strong>Optimized Build:</strong> Rollup-based production builds with automatic code splitting</li>
+                            <li><strong>Modern by Default:</strong> TypeScript, JSX, CSS Modules work out of the box</li>
+                            <li><strong>Smaller Bundle:</strong> Tree-shaking and efficient chunking for smaller production bundles</li>
+                        </ul>
+                        <div class="comparison-box">
+                            <h5>Speed Comparison</h5>
+                            <div class="comparison-item">
+                                <span>Create React App:</span>
+                                <div class="progress-bar slow"><span style="width: 100%"></span></div>
+                                <span>30-60 seconds</span>
+                            </div>
+                            <div class="comparison-item">
+                                <span>Vite:</span>
+                                <div class="progress-bar fast"><span style="width: 15%"></span></div>
+                                <span>~300ms</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-item">
+                    <div class="tech-header">
+                        <span class="tech-logo">🎨</span>
+                        <h3>Tailwind CSS</h3>
+                        <span class="tech-badge">Styling</span>
+                    </div>
+                    <div class="tech-content">
+                        <h4>Why Tailwind CSS?</h4>
+                        <ul>
+                            <li><strong>Utility-First:</strong> Build designs directly in HTML without writing CSS files</li>
+                            <li><strong>No Context Switching:</strong> Style components without leaving the JSX file</li>
+                            <li><strong>Responsive Design:</strong> Built-in responsive prefixes (sm:, md:, lg:, xl:)</li>
+                            <li><strong>Consistent Design:</strong> Pre-defined spacing, colors, and typography scales</li>
+                            <li><strong>Tiny Production CSS:</strong> PurgeCSS removes unused styles automatically</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tech-item">
+                    <div class="tech-header">
+                        <span class="tech-logo">📘</span>
+                        <h3>TypeScript</h3>
+                        <span class="tech-badge">Language</span>
+                    </div>
+                    <div class="tech-content">
+                        <h4>Why TypeScript?</h4>
+                        <ul>
+                            <li><strong>Type Safety:</strong> Catch errors at compile time, not runtime</li>
+                            <li><strong>Better IDE Support:</strong> Autocomplete, refactoring, and inline documentation</li>
+                            <li><strong>Self-Documenting:</strong> Types serve as documentation for function parameters and return values</li>
+                            <li><strong>Easier Refactoring:</strong> Rename symbols across entire codebase safely</li>
+                            <li><strong>Industry Adoption:</strong> Required by most enterprise projects</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backend Technologies -->
+            <div class="card">
+                <h2>Backend Technologies</h2>
+
+                <div class="tech-item">
+                    <div class="tech-header">
+                        <span class="tech-logo">🟢</span>
+                        <h3>Node.js</h3>
+                        <span class="tech-badge">Runtime</span>
+                    </div>
+                    <div class="tech-content">
+                        <h4>Why Node.js?</h4>
+                        <ul>
+                            <li><strong>JavaScript Everywhere:</strong> Same language for frontend and backend = faster development</li>
+                            <li><strong>Non-Blocking I/O:</strong> Handle thousands of concurrent connections efficiently</li>
+                            <li><strong>NPM Ecosystem:</strong> Largest package registry with 2+ million packages</li>
+                            <li><strong>Event-Driven:</strong> Perfect for real-time applications and APIs</li>
+                            <li><strong>Fast Execution:</strong> V8 engine compiles JavaScript to machine code</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tech-item">
+                    <div class="tech-header">
+                        <span class="tech-logo">🚂</span>
+                        <h3>Express.js</h3>
+                        <span class="tech-badge">Framework</span>
+                    </div>
+                    <div class="tech-content">
+                        <h4>Why Express.js?</h4>
+                        <ul>
+                            <li><strong>Minimal & Flexible:</strong> Unopinionated framework - use only what you need</li>
+                            <li><strong>Middleware Support:</strong> Chain functions for request processing (auth, logging, validation)</li>
+                            <li><strong>Robust Routing:</strong> Define routes with parameters, query strings, and HTTP methods</li>
+                            <li><strong>Battle-Tested:</strong> Most popular Node.js framework, used by IBM, Uber, Twitter</li>
+                            <li><strong>Easy to Learn:</strong> Simple API that's intuitive for beginners</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tech-item">
+                    <div class="tech-header">
+                        <span class="tech-logo">🔺</span>
+                        <h3>Prisma ORM</h3>
+                        <span class="tech-badge">Database ORM</span>
+                    </div>
+                    <div class="tech-content">
+                        <h4>Why Prisma?</h4>
+                        <ul>
+                            <li><strong>Type-Safe Queries:</strong> Auto-generated types from your schema</li>
+                            <li><strong>Intuitive Data Modeling:</strong> Declarative schema language (schema.prisma)</li>
+                            <li><strong>Auto-Migrations:</strong> Database migrations generated from schema changes</li>
+                            <li><strong>Prisma Studio:</strong> Built-in GUI for viewing and editing data</li>
+                            <li><strong>Query Builder:</strong> Chainable, type-safe query API</li>
+                        </ul>
+                        <div class="code-example">
+                            <h5>Example Prisma Query</h5>
+                            <pre><code>// Find all tasks assigned to user with included relations
+const tasks = await prisma.task.findMany({
+  where: { assignedTo: userId },
+  include: {
+    user: true,      // Include creator
+    assignee: true   // Include assignee
+  },
+  orderBy: { createdAt: 'desc' }
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Database -->
+            <div class="card">
+                <h2>Database</h2>
+
+                <div class="tech-item">
+                    <div class="tech-header">
+                        <span class="tech-logo">🗃️</span>
+                        <h3>SQLite</h3>
+                        <span class="tech-badge">Database</span>
+                    </div>
+                    <div class="tech-content">
+                        <h4>Why SQLite?</h4>
+                        <ul>
+                            <li><strong>Zero Configuration:</strong> No server setup, runs embedded in the application</li>
+                            <li><strong>Serverless:</strong> Single file database - easy to backup, move, and version control</li>
+                            <li><strong>ACID Compliant:</strong> Full transaction support with rollback capabilities</li>
+                            <li><strong>Cross-Platform:</strong> Works on Windows, Linux, macOS without changes</li>
+                            <li><strong>Perfect for Development:</strong> No external dependencies, instant setup</li>
+                            <li><strong>Production Ready:</strong> Used by Airbnb, Apple, Firefox for millions of users</li>
+                        </ul>
+                        
+                        <div class="info-box warning">
+                            <h5>⚠️ When to Use PostgreSQL/MySQL Instead</h5>
+                            <ul>
+                                <li>High-write concurrent applications (>100 writes/second)</li>
+                                <li>Multiple servers need to access the same database</li>
+                                <li>Database size exceeds 100GB</li>
+                                <li>Need advanced features like stored procedures</li>
+                            </ul>
+                        </div>
+
+                        <div class="comparison-table">
+                            <h5>SQLite vs PostgreSQL</h5>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>SQLite</th>
+                                        <th>PostgreSQL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Setup Time</td>
+                                        <td class="good">0 minutes</td>
+                                        <td class="neutral">15-30 minutes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Server Required</td>
+                                        <td class="good">No</td>
+                                        <td class="neutral">Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Concurrent Writes</td>
+                                        <td class="neutral">Limited</td>
+                                        <td class="good">Excellent</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Portability</td>
+                                        <td class="good">Single File</td>
+                                        <td class="neutral">Server Dump</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Best For</td>
+                                        <td>Small-Medium Apps</td>
+                                        <td>Large Scale Apps</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture Section -->
+        <section id="architecture" class="section">
+            <div class="section-header">
+                <h1>🏗️ System Architecture</h1>
+                <p class="subtitle">How the components work together</p>
+            </div>
+
+            <div class="card">
+                <h2>High-Level Architecture Diagram</h2>
+                <div class="architecture-diagram">
+                    <div class="arch-layer client-layer">
+                        <h4>Client Layer</h4>
+                        <div class="arch-boxes">
+                            <div class="arch-box">
+                                <span class="arch-icon">🌐</span>
+                                <span>Browser</span>
+                            </div>
+                            <div class="arch-arrow">→</div>
+                            <div class="arch-box">
+                                <span class="arch-icon">⚛️</span>
+                                <span>React App</span>
+                                <small>Port 5173</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="arch-connector">↓ HTTP/HTTPS ↓</div>
+                    
+                    <div class="arch-layer api-layer">
+                        <h4>API Layer</h4>
+                        <div class="arch-boxes">
+                            <div class="arch-box">
+                                <span class="arch-icon">🚂</span>
+                                <span>Express.js</span>
+                                <small>Port 5001</small>
+                            </div>
+                            <div class="arch-arrow">→</div>
+                            <div class="arch-box-group">
+                                <div class="arch-box small">
+                                    <span>Auth Middleware</span>
+                                </div>
+                                <div class="arch-box small">
+                                    <span>Permission Middleware</span>
+                                </div>
+                                <div class="arch-box small">
+                                    <span>Validation Middleware</span>
+                                </div>
+                            </div>
+                            <div class="arch-arrow">→</div>
+                            <div class="arch-box-group">
+                                <div class="arch-box small">
+                                    <span>Controllers</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="arch-connector">↓ Prisma ORM ↓</div>
+                    
+                    <div class="arch-layer data-layer">
+                        <h4>Data Layer</h4>
+                        <div class="arch-boxes">
+                            <div class="arch-box">
+                                <span class="arch-icon">🗃️</span>
+                                <span>SQLite Database</span>
+                                <small>dev.db</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Project Structure</h2>
+                <div class="folder-structure">
+                    <pre>
+Task-Management-System/
+├── 📁 backend/
+│   ├── 📁 prisma/
+│   │   ├── 📄 schema.prisma    # Database schema definition
+│   │   ├── 📄 seed.ts          # Initial data seeding
+│   │   └── 📄 dev.db           # SQLite database file
+│   ├── 📁 src/
+│   │   ├── 📁 config/
+│   │   │   └── 📄 database.ts  # Prisma client instance
+│   │   ├── 📁 controllers/
+│   │   │   ├── 📄 authController.ts   # Login, Register, Impersonate
+│   │   │   ├── 📄 taskController.ts   # Task CRUD operations
+│   │   │   └── 📄 userController.ts   # User management
+│   │   ├── 📁 middleware/
+│   │   │   ├── 📄 auth.ts       # JWT verification
+│   │   │   └── 📄 permission.ts # RBAC permission checks
+│   │   ├── 📁 routes/
+│   │   │   ├── 📄 authRoutes.ts  # /api/auth/*
+│   │   │   ├── 📄 taskRoutes.ts  # /api/tasks/*
+│   │   │   └── 📄 userRoutes.ts  # /api/users/*
+│   │   ├── 📁 types/
+│   │   │   └── 📄 index.ts      # TypeScript interfaces
+│   │   └── 📄 index.ts          # Express app entry point
+│   ├── 📄 package.json
+│   └── 📄 tsconfig.json
+│
+├── 📁 frontend/
+│   ├── 📁 src/
+│   │   ├── 📁 components/
+│   │   │   ├── 📁 auth/
+│   │   │   │   └── 📄 ProtectedRoute.tsx
+│   │   │   ├── 📁 common/
+│   │   │   │   └── 📄 Navbar.tsx
+│   │   │   └── 📁 tasks/
+│   │   │       ├── 📄 TaskCard.tsx
+│   │   │       └── 📄 TaskForm.tsx
+│   │   ├── 📁 contexts/
+│   │   │   └── 📄 AuthContext.tsx  # Global auth state
+│   │   ├── 📁 pages/
+│   │   │   ├── 📄 Dashboard.tsx
+│   │   │   ├── 📄 Login.tsx
+│   │   │   ├── 📄 Register.tsx
+│   │   │   └── 📄 UserManagement.tsx
+│   │   ├── 📁 services/
+│   │   │   └── 📄 api.ts         # Axios instance
+│   │   ├── 📄 App.tsx            # Route definitions
+│   │   └── 📄 main.tsx           # React entry point
+│   ├── 📄 package.json
+│   └── 📄 vite.config.ts
+│
+├── 📁 document/                   # This documentation
+└── 📄 README.md
+                    </pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Request Flow Diagram</h2>
+                <div class="flow-diagram">
+                    <div class="flow-step">
+                        <div class="flow-number">1</div>
+                        <div class="flow-content">
+                            <h4>Client Request</h4>
+                            <p>User clicks "Create Task" button</p>
+                            <code>POST /api/tasks</code>
+                        </div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">2</div>
+                        <div class="flow-content">
+                            <h4>API Service (Axios)</h4>
+                            <p>Adds JWT token to Authorization header</p>
+                            <code>Bearer eyJhbGciOiJIUzI1...</code>
+                        </div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">3</div>
+                        <div class="flow-content">
+                            <h4>Auth Middleware</h4>
+                            <p>Verifies JWT token, extracts user info</p>
+                            <code>jwt.verify(token, secret)</code>
+                        </div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">4</div>
+                        <div class="flow-content">
+                            <h4>Permission Middleware</h4>
+                            <p>Checks if user has 'tasks:create' permission</p>
+                            <code>hasPermission('tasks:create')</code>
+                        </div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">5</div>
+                        <div class="flow-content">
+                            <h4>Validation Middleware</h4>
+                            <p>Validates request body (title required, etc.)</p>
+                            <code>express-validator</code>
+                        </div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">6</div>
+                        <div class="flow-content">
+                            <h4>Controller</h4>
+                            <p>Business logic - create task in database</p>
+                            <code>prisma.task.create({...})</code>
+                        </div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">7</div>
+                        <div class="flow-content">
+                            <h4>Database</h4>
+                            <p>SQLite stores the new task record</p>
+                            <code>INSERT INTO tasks ...</code>
+                        </div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step success">
+                        <div class="flow-number">8</div>
+                        <div class="flow-content">
+                            <h4>Response</h4>
+                            <p>Returns created task with 201 status</p>
+                            <code>{ "message": "Task created", "task": {...} }</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JWT Authentication Section -->
+        <section id="jwt-authentication" class="section">
+            <div class="section-header">
+                <h1>🔐 JWT Authentication</h1>
+                <p class="subtitle">How JSON Web Tokens Secure Your Application</p>
+            </div>
+
+            <div class="card">
+                <h2>What is JWT?</h2>
+                <p>JSON Web Token (JWT) is an open standard (RFC 7519) for securely transmitting information between parties as a JSON object. This information is digitally signed, so it can be verified and trusted.</p>
+                
+                <div class="jwt-structure">
+                    <h3>JWT Structure</h3>
+                    <div class="jwt-parts">
+                        <div class="jwt-part header">
+                            <h4>Header</h4>
+                            <code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</code>
+                            <pre>{
+  "alg": "HS256",
+  "typ": "JWT"
+}</pre>
+                            <p>Specifies the signing algorithm (HS256) and token type</p>
+                        </div>
+                        <div class="jwt-separator">.</div>
+                        <div class="jwt-part payload">
+                            <h4>Payload</h4>
+                            <code>eyJ1c2VySWQiOjEsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwicm9sZUlkIjoxLCJpYXQiOjE3MTIwMDAwMDAsImV4cCI6MTcxMjYwNDgwMH0</code>
+                            <pre>{
+  "userId": 1,
+  "email": "admin@admin.com",
+  "roleId": 1,
+  "iat": 1712000000,
+  "exp": 1712604800
+}</pre>
+                            <p>Contains user data and token metadata</p>
+                        </div>
+                        <div class="jwt-separator">.</div>
+                        <div class="jwt-part signature">
+                            <h4>Signature</h4>
+                            <code>SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</code>
+                            <pre>HMACSHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  secret
+)</pre>
+                            <p>Ensures token hasn't been tampered with</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Token Lifecycle</h2>
+                <div class="token-lifecycle">
+                    <div class="lifecycle-stage">
+                        <div class="stage-icon">🔑</div>
+                        <h4>1. Token Generation</h4>
+                        <p>When user logs in successfully, server creates a JWT with user data</p>
+                        <div class="code-block">
+                            <pre><code>const token = jwt.sign(
+  { userId: user.id, email: user.email, roleId: user.roleId },
+  JWT_SECRET,
+  { expiresIn: '7d' }  // Token valid for 7 days
+);</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="lifecycle-stage">
+                        <div class="stage-icon">💾</div>
+                        <h4>2. Token Storage</h4>
+                        <p>Frontend stores token in localStorage for persistence</p>
+                        <div class="code-block">
+                            <pre><code>localStorage.setItem('token', response.data.token);
+localStorage.setItem('user', JSON.stringify(response.data.user));</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="lifecycle-stage">
+                        <div class="stage-icon">📤</div>
+                        <h4>3. Token Transmission</h4>
+                        <p>Every API request includes token in Authorization header</p>
+                        <div class="code-block">
+                            <pre><code>// Axios interceptor automatically adds token
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="lifecycle-stage">
+                        <div class="stage-icon">✅</div>
+                        <h4>4. Token Verification</h4>
+                        <p>Server validates token on every protected request</p>
+                        <div class="code-block">
+                            <pre><code>const decoded = jwt.verify(token, JWT_SECRET) as TokenPayload;
+// decoded = { userId: 1, email: "...", roleId: 1, iat: ..., exp: ... }
+
+// Fetch fresh user data from database
+const user = await prisma.user.findUnique({
+  where: { id: decoded.userId },
+  include: { role: { include: { permissions: true } } }
+});</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="lifecycle-stage warning">
+                        <div class="stage-icon">⏰</div>
+                        <h4>5. Token Expiration</h4>
+                        <p>After 7 days, token becomes invalid and user must re-login</p>
+                        <div class="code-block">
+                            <pre><code>// Server returns 401 if token expired
+if (error instanceof jwt.TokenExpiredError) {
+  res.status(401).json({ message: 'Token expired' });
+}
+
+// Frontend redirects to login on 401
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
+      window.location.href = '/login';
+    }
+  }
+);</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Token Configuration</h2>
+                <div class="config-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Setting</th>
+                                <th>Value</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>JWT_SECRET</code></td>
+                                <td>Environment Variable</td>
+                                <td>Secret key for signing tokens. <strong>Never commit to git!</strong></td>
+                            </tr>
+                            <tr>
+                                <td><code>JWT_EXPIRES_IN</code></td>
+                                <td><strong>7 days</strong> (7d)</td>
+                                <td>Token validity period. User must re-login after expiration.</td>
+                            </tr>
+                            <tr>
+                                <td><code>Algorithm</code></td>
+                                <td>HS256</td>
+                                <td>HMAC with SHA-256 - symmetric signing algorithm</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="info-box">
+                    <h4>⏱️ Token Expiration Options</h4>
+                    <div class="expiration-options">
+                        <div class="exp-option">
+                            <code>60</code> = 60 seconds
+                        </div>
+                        <div class="exp-option">
+                            <code>'2 days'</code> = 2 days
+                        </div>
+                        <div class="exp-option">
+                            <code>'10h'</code> = 10 hours
+                        </div>
+                        <div class="exp-option selected">
+                            <code>'7d'</code> = 7 days ✓
+                        </div>
+                        <div class="exp-option">
+                            <code>'1w'</code> = 1 week
+                        </div>
+                        <div class="exp-option">
+                            <code>'1y'</code> = 1 year
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Security Best Practices</h2>
+                <div class="security-grid">
+                    <div class="security-item good">
+                        <span class="security-icon">✅</span>
+                        <h4>We Do</h4>
+                        <ul>
+                            <li>Store JWT_SECRET in environment variables</li>
+                            <li>Set reasonable expiration (7 days)</li>
+                            <li>Validate token on every request</li>
+                            <li>Hash passwords with bcrypt (10 rounds)</li>
+                            <li>Clear token on logout</li>
+                            <li>Validate token on app reload</li>
+                        </ul>
+                    </div>
+                    <div class="security-item bad">
+                        <span class="security-icon">❌</span>
+                        <h4>Never Do</h4>
+                        <ul>
+                            <li>Store JWT_SECRET in code</li>
+                            <li>Set token to never expire</li>
+                            <li>Store sensitive data in JWT payload</li>
+                            <li>Trust token without verification</li>
+                            <li>Store tokens in cookies without httpOnly</li>
+                            <li>Log full JWT tokens</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Database Section -->
+        <section id="database" class="section">
+            <div class="section-header">
+                <h1>🗄️ Database Schema</h1>
+                <p class="subtitle">SQLite Database Structure with Prisma ORM</p>
+            </div>
+
+            <div class="card">
+                <h2>Entity Relationship Diagram</h2>
+                <div class="erd-diagram">
+                    <div class="erd-table users">
+                        <div class="erd-header">👤 users</div>
+                        <div class="erd-columns">
+                            <div class="erd-column pk">🔑 id (INT, PK)</div>
+                            <div class="erd-column">📧 email (VARCHAR, UNIQUE)</div>
+                            <div class="erd-column">👤 username (VARCHAR, UNIQUE)</div>
+                            <div class="erd-column">🔒 password (VARCHAR)</div>
+                            <div class="erd-column fk">🔗 role_id (INT, FK)</div>
+                            <div class="erd-column">📅 created_at (DATETIME)</div>
+                            <div class="erd-column">📅 updated_at (DATETIME)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="erd-relation">
+                        <div class="relation-line"></div>
+                        <span>N:1</span>
+                    </div>
+                    
+                    <div class="erd-table roles">
+                        <div class="erd-header">🎭 roles</div>
+                        <div class="erd-columns">
+                            <div class="erd-column pk">🔑 id (INT, PK)</div>
+                            <div class="erd-column">📝 name (VARCHAR, UNIQUE)</div>
+                            <div class="erd-column">📄 description (VARCHAR)</div>
+                            <div class="erd-column">📅 created_at (DATETIME)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="erd-relation">
+                        <div class="relation-line"></div>
+                        <span>N:M</span>
+                    </div>
+                    
+                    <div class="erd-table permissions">
+                        <div class="erd-header">🔐 permissions</div>
+                        <div class="erd-columns">
+                            <div class="erd-column pk">🔑 id (INT, PK)</div>
+                            <div class="erd-column">📝 name (VARCHAR, UNIQUE)</div>
+                            <div class="erd-column">📄 description (VARCHAR)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="erd-diagram" style="margin-top: 40px;">
+                    <div class="erd-table junction">
+                        <div class="erd-header">🔗 role_permissions</div>
+                        <div class="erd-columns">
+                            <div class="erd-column pk fk">🔑 role_id (INT, PK, FK)</div>
+                            <div class="erd-column pk fk">🔑 permission_id (INT, PK, FK)</div>
+                        </div>
+                    </div>
+                    
+                    <div style="width: 50px;"></div>
+                    
+                    <div class="erd-table tasks">
+                        <div class="erd-header">📋 tasks</div>
+                        <div class="erd-columns">
+                            <div class="erd-column pk">🔑 id (INT, PK)</div>
+                            <div class="erd-column">📝 title (VARCHAR)</div>
+                            <div class="erd-column">📄 description (TEXT)</div>
+                            <div class="erd-column">📊 status (VARCHAR)</div>
+                            <div class="erd-column">⚡ priority (VARCHAR)</div>
+                            <div class="erd-column fk">🔗 user_id (INT, FK)</div>
+                            <div class="erd-column fk">🔗 assigned_to (INT, FK, NULL)</div>
+                            <div class="erd-column">📅 due_date (DATETIME)</div>
+                            <div class="erd-column">📅 created_at (DATETIME)</div>
+                            <div class="erd-column">📅 updated_at (DATETIME)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Table Details</h2>
+                
+                <div class="table-detail">
+                    <h3>👤 Users Table</h3>
+                    <p>Stores all registered users with their credentials and role assignment.</p>
+                    <table class="schema-table">
+                        <thead>
+                            <tr>
+                                <th>Column</th>
+                                <th>Type</th>
+                                <th>Constraints</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>id</code></td>
+                                <td>INTEGER</td>
+                                <td>PRIMARY KEY, AUTO INCREMENT</td>
+                                <td>Unique user identifier</td>
+                            </tr>
+                            <tr>
+                                <td><code>email</code></td>
+                                <td>VARCHAR(255)</td>
+                                <td>UNIQUE, NOT NULL</td>
+                                <td>User's email for login</td>
+                            </tr>
+                            <tr>
+                                <td><code>username</code></td>
+                                <td>VARCHAR(255)</td>
+                                <td>UNIQUE, NOT NULL</td>
+                                <td>Display name (min 3 chars)</td>
+                            </tr>
+                            <tr>
+                                <td><code>password</code></td>
+                                <td>VARCHAR(255)</td>
+                                <td>NOT NULL</td>
+                                <td>Bcrypt hashed password</td>
+                            </tr>
+                            <tr>
+                                <td><code>role_id</code></td>
+                                <td>INTEGER</td>
+                                <td>FOREIGN KEY → roles.id</td>
+                                <td>User's assigned role</td>
+                            </tr>
+                            <tr>
+                                <td><code>created_at</code></td>
+                                <td>DATETIME</td>
+                                <td>DEFAULT NOW()</td>
+                                <td>Registration timestamp</td>
+                            </tr>
+                            <tr>
+                                <td><code>updated_at</code></td>
+                                <td>DATETIME</td>
+                                <td>AUTO UPDATE</td>
+                                <td>Last modification time</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-detail">
+                    <h3>🎭 Roles Table</h3>
+                    <p>Defines the three user roles in the system.</p>
+                    <table class="schema-table">
+                        <thead>
+                            <tr>
+                                <th>Column</th>
+                                <th>Type</th>
+                                <th>Constraints</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>id</code></td>
+                                <td>INTEGER</td>
+                                <td>PRIMARY KEY</td>
+                                <td>1=Admin, 2=Manager, 3=User</td>
+                            </tr>
+                            <tr>
+                                <td><code>name</code></td>
+                                <td>VARCHAR(50)</td>
+                                <td>UNIQUE, NOT NULL</td>
+                                <td>Role name (Admin/Manager/User)</td>
+                            </tr>
+                            <tr>
+                                <td><code>description</code></td>
+                                <td>VARCHAR(255)</td>
+                                <td>NULLABLE</td>
+                                <td>Role description</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="data-preview">
+                        <h5>Sample Data:</h5>
+                        <table>
+                            <tr><th>id</th><th>name</th><th>description</th></tr>
+                            <tr><td>1</td><td>Admin</td><td>Full system access</td></tr>
+                            <tr><td>2</td><td>Manager</td><td>Team and task management</td></tr>
+                            <tr><td>3</td><td>User</td><td>Basic task operations</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="table-detail">
+                    <h3>🔐 Permissions Table</h3>
+                    <p>Defines granular permissions that can be assigned to roles.</p>
+                    <div class="data-preview">
+                        <h5>All Permissions:</h5>
+                        <table>
+                            <tr><th>id</th><th>name</th><th>description</th></tr>
+                            <tr><td>1</td><td>users:create</td><td>Create new users</td></tr>
+                            <tr><td>2</td><td>users:read</td><td>View user list</td></tr>
+                            <tr><td>3</td><td>users:update</td><td>Modify users</td></tr>
+                            <tr><td>4</td><td>users:delete</td><td>Remove users</td></tr>
+                            <tr><td>5</td><td>tasks:create</td><td>Create tasks</td></tr>
+                            <tr><td>6</td><td>tasks:read:all</td><td>View all tasks</td></tr>
+                            <tr><td>7</td><td>tasks:read:own</td><td>View own tasks</td></tr>
+                            <tr><td>8</td><td>tasks:update:all</td><td>Edit any task</td></tr>
+                            <tr><td>9</td><td>tasks:update:own</td><td>Edit own tasks</td></tr>
+                            <tr><td>10</td><td>tasks:delete:all</td><td>Delete any task</td></tr>
+                            <tr><td>11</td><td>tasks:delete:own</td><td>Delete own tasks</td></tr>
+                            <tr><td>12</td><td>tasks:assign</td><td>Assign tasks to users</td></tr>
+                            <tr><td>13</td><td>roles:manage</td><td>Change user roles</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="table-detail">
+                    <h3>📋 Tasks Table</h3>
+                    <p>Stores all tasks with their status, priority, and assignments.</p>
+                    <table class="schema-table">
+                        <thead>
+                            <tr>
+                                <th>Column</th>
+                                <th>Type</th>
+                                <th>Constraints</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>id</code></td>
+                                <td>INTEGER</td>
+                                <td>PRIMARY KEY, AUTO INCREMENT</td>
+                                <td>Unique task identifier</td>
+                            </tr>
+                            <tr>
+                                <td><code>title</code></td>
+                                <td>VARCHAR(200)</td>
+                                <td>NOT NULL</td>
+                                <td>Task title (max 200 chars)</td>
+                            </tr>
+                            <tr>
+                                <td><code>description</code></td>
+                                <td>TEXT</td>
+                                <td>NULLABLE</td>
+                                <td>Detailed description (max 2000 chars)</td>
+                            </tr>
+                            <tr>
+                                <td><code>status</code></td>
+                                <td>VARCHAR(20)</td>
+                                <td>DEFAULT 'TODO'</td>
+                                <td>TODO | IN_PROGRESS | COMPLETED</td>
+                            </tr>
+                            <tr>
+                                <td><code>priority</code></td>
+                                <td>VARCHAR(10)</td>
+                                <td>DEFAULT 'MEDIUM'</td>
+                                <td>LOW | MEDIUM | HIGH</td>
+                            </tr>
+                            <tr>
+                                <td><code>user_id</code></td>
+                                <td>INTEGER</td>
+                                <td>FOREIGN KEY → users.id</td>
+                                <td>Task creator</td>
+                            </tr>
+                            <tr>
+                                <td><code>assigned_to</code></td>
+                                <td>INTEGER</td>
+                                <td>FOREIGN KEY → users.id, NULLABLE</td>
+                                <td>Assigned user (optional)</td>
+                            </tr>
+                            <tr>
+                                <td><code>due_date</code></td>
+                                <td>DATETIME</td>
+                                <td>NULLABLE</td>
+                                <td>Task deadline</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Prisma Schema</h2>
+                <div class="code-block large">
+                    <pre><code>// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")  // file:./dev.db
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  username  String   @unique
+  password  String
+  roleId    Int      @map("role_id")
+  role      Role     @relation(fields: [roleId], references: [id])
+  tasks     Task[]   @relation("CreatedTasks")
+  assigned  Task[]   @relation("AssignedTasks")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model Role {
+  id          Int              @id @default(autoincrement())
+  name        String           @unique
+  description String?
+  users       User[]
+  permissions RolePermission[]
+  createdAt   DateTime         @default(now()) @map("created_at")
+
+  @@map("roles")
+}
+
+model Permission {
+  id          Int              @id @default(autoincrement())
+  name        String           @unique
+  description String?
+  roles       RolePermission[]
+
+  @@map("permissions")
+}
+
+model RolePermission {
+  roleId       Int        @map("role_id")
+  permissionId Int        @map("permission_id")
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@map("role_permissions")
+}
+
+model Task {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String?
+  status      String    @default("TODO")
+  priority    String    @default("MEDIUM")
+  userId      Int       @map("user_id")
+  user        User      @relation("CreatedTasks", fields: [userId], references: [id], onDelete: Cascade)
+  assignedTo  Int?      @map("assigned_to")
+  assignee    User?     @relation("AssignedTasks", fields: [assignedTo], references: [id], onDelete: SetNull)
+  dueDate     DateTime? @map("due_date")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  @@map("tasks")
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- API Endpoints Section -->
+        <section id="api-endpoints" class="section">
+            <div class="section-header">
+                <h1>🔌 API Endpoints</h1>
+                <p class="subtitle">Complete REST API Reference</p>
+            </div>
+
+            <div class="api-info-bar">
+                <div class="api-info-item">
+                    <span class="label">Base URL:</span>
+                    <code>http://localhost:5001/api</code>
+                </div>
+                <div class="api-info-item">
+                    <span class="label">Content-Type:</span>
+                    <code>application/json</code>
+                </div>
+            </div>
+
+            <!-- Auth Endpoints -->
+            <div class="card">
+                <h2>🔐 Authentication Endpoints</h2>
+
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/auth/register</span>
+                        <span class="auth-badge public">Public</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p class="description">Register a new user account. New users are automatically assigned the "User" role.</p>
+                        
+                        <div class="endpoint-section">
+                            <h5>Request Body</h5>
+                            <table class="params-table">
+                                <tr>
+                                    <td><code>email</code></td>
+                                    <td>string</td>
+                                    <td class="required">Required</td>
+                                    <td>Valid email address</td>
+                                </tr>
+                                <tr>
+                                    <td><code>username</code></td>
+                                    <td>string</td>
+                                    <td class="required">Required</td>
+                                    <td>Min 3 characters, unique</td>
+                                </tr>
+                                <tr>
+                                    <td><code>password</code></td>
+                                    <td>string</td>
+                                    <td class="required">Required</td>
+                                    <td>Min 6 characters</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="endpoint-section">
+                            <h5>Example Request</h5>
+                            <pre><code>POST /api/auth/register
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "username": "johndoe",
+  "password": "password123"
+}</code></pre>
+                        </div>
+
+                        <div class="endpoint-section">
+                            <h5>Success Response (201)</h5>
+                            <pre><code>{
+  "message": "User registered successfully",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": 4,
+    "email": "john@example.com",
+    "username": "johndoe",
+    "role": {
+      "id": 3,
+      "name": "User",
+      "permissions": ["tasks:create", "tasks:read:own", "tasks:update:own", "tasks:delete:own"]
+    }
+  }
+}</code></pre>
+                        </div>
+
+                        <div class="endpoint-section">
+                            <h5>Error Responses</h5>
+                            <div class="error-responses">
+                                <div class="error-item">
+                                    <span class="error-code">400</span>
+                                    <span>Email already registered / Username already taken</span>
+                                </div>
+                                <div class="error-item">
+                                    <span class="error-code">400</span>
+                                    <span>Validation failed (invalid email, short password, etc.)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/auth/login</span>
+                        <span class="auth-badge public">Public</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p class="description">Authenticate user and receive a JWT token valid for 7 days.</p>
+                        
+                        <div class="endpoint-section">
+                            <h5>Request Body</h5>
+                            <table class="params-table">
+                                <tr>
+                                    <td><code>email</code></td>
+                                    <td>string</td>
+                                    <td class="required">Required</td>
+                                    <td>Registered email address</td>
+                                </tr>
+                                <tr>
+                                    <td><code>password</code></td>
+                                    <td>string</td>
+                                    <td class="required">Required</td>
+                                    <td>Account password</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="endpoint-section">
+                            <h5>Example Request</h5>
+                            <pre><code>POST /api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@admin.com",
+  "password": "admin123"
+}</code></pre>
+                        </div>
+
+                        <div class="endpoint-section">
+                            <h5>Success Response (200)</h5>
+                            <pre><code>{
+  "message": "Login successful",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwicm9sZUlkIjoxLCJpYXQiOjE3MTIwMDAwMDAsImV4cCI6MTcxMjYwNDgwMH0.xxx",
+  "user": {
+    "id": 1,
+    "email": "admin@admin.com",
+    "username": "admin",
+    "role": {
+      "id": 1,
+      "name": "Admin",
+      "permissions": ["users:create", "users:read", "users:update", "users:delete", "tasks:create", "tasks:read:all", "tasks:read:own", "tasks:update:all", "tasks:update:own", "tasks:delete:all", "tasks:delete:own", "tasks:assign", "roles:manage"]
+    }
+  }
+}</code></pre>
+                        </div>
+
+                        <div class="endpoint-section">
+                            <h5>Error Responses</h5>
+                            <div class="error-responses">
+                                <div class="error-item">
+                                    <span class="error-code">401</span>
+                                    <span>Invalid credentials (wrong email or password)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/auth/me</span>
+                        <span class="auth-badge protected">🔒 Protected</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p class="description">Get the currently authenticated user's profile and permissions.</p>
+                        
+                        <div class="endpoint-section">
+                            <h5>Headers</h5>
+                            <table class="params-table">
+                                <tr>
+                                    <td><code>Authorization</code></td>
+                                    <td>string</td>
+                                    <td class="required">Required</td>
+                                    <td>Bearer &lt;token&gt;</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="endpoint-section">
+                            <h5>Success Response (200)</h5>
+                            <pre><code>{
+  "user": {
+    "id": 1,
+    "email": "admin@admin.com",
+    "username": "admin",
+    "role": {
+      "id": 1,
+      "name": "Admin",
+      "permissions": [...]
+    }
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/auth/impersonate/:userId</span>
+                        <span class="auth-badge admin">🔒 Admin Only</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p class="description">Admin can login as any other user to test their permissions and view.</p>
+                        
+                        <div class="endpoint-section">
+                            <h5>Path Parameters</h5>
+                            <table class="params-table">
+                                <tr>
+                                    <td><code>userId</code></td>
+                                    <td>integer</td>
+                                    <td class="required">Required</td>
+                                    <td>ID of user to impersonate</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="endpoint-section">
+                            <h5>Success Response (200)</h5>
+                            <pre><code>{
+  "message": "Now logged in as manager",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": 2,
+    "email": "manager@example.com",
+    "username": "manager",
+    "role": { "id": 2, "name": "Manager", "permissions": [...] }
+  },
+  "impersonatedBy": {
+    "id": 1,
+    "username": "admin"
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Task Endpoints -->
+            <div class="card">
+                <h2>📋 Task Endpoints</h2>
+
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/tasks</span>
+                        <span class="auth-badge protected">🔒 Protected</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p class="description">Fetch tasks based on user's permissions. Admins and Managers see all tasks, Users see only their own tasks and assigned tasks.</p>
+                        
+                        <div class="endpoint-section">
+                            <h5>Query Parameters (Optional)</h5>
+                            <table class="params-table">
+                                <tr>
+                                    <td><code>status</code></td>
+                                    <td>string</td>
+                                    <td class="optional">Optional</td>
+                                    <td>TODO | IN_PROGRESS | COMPLETED</td>
+                                </tr>
+                                <tr>
+                                    <td><code>priority</code></td>
+                                    <td>string</td>
+                                    <td class="optional">Optional</td>
+                                    <td>LOW | MEDIUM | HIGH</td>
+                                </tr>
+                                <tr>
+                                    <td><code>assignedTo</code></td>
+                                    <td>integer</td>
+                                    <td class="optional">Optional</td>
+                                    <td>Filter by assigned user ID</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="endpoint-section">
+                            <h5>Example Request</h5>
+                            <pre><code>GET /api/tasks?status=TODO&priority=HIGH
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</code></pre>
+                        </div>
+
+                        <div class="endpoint-section">
+                            <h5>Success Response (200)</h5>
+                            <pre><code>{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Complete project documentation",
+      "description": "Write comprehensive API docs",
+      "status": "TODO",
+      "priority": "HIGH",
+      "dueDate": "2026-04-15T00:00:00.000Z",
+      "userId": 1,
+      "assignedTo": 2,
+      "user": {
+        "id": 1,
+        "username": "admin",
+        "email": "admin@admin.com"
+      },
+      "assignee": {
+        "id": 2,
+        "username": "manager",
+        "email": "manager@example.com"
+      },
+      "createdAt": "2026-04-01T10:00:00.000Z",
+      "updatedAt": "2026-04-01T10:00:00.000Z"
+    }
+  ]
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/tasks</span>
+                        <span class="auth-badge protected">🔒 Protected</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p class="description">Create a new task. The logged-in user becomes the task creator. Only Admin/Manager can assign tasks to others.</p>
+                        
+                        <div class="endpoint-section">
+                            <h5>Request Body</h5>
+                            <table class="params-table">
+                                <tr>
+                                    <td><code>title</code></td>
+                                    <td>string</td>
+                                    <td class="required">Required</td>
+                                    <td>Task title (max 200 chars)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>description</code></td>
+                                    <td>string</td>
+                                    <td class="optional">Optional</td>
+                                    <td>Detailed description (max 2000 chars)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>status</code></td>
+                                    <td>string</td>
+                                    <td class="optional">Optional</td>
+                                    <td>TODO (default) | IN_PROGRESS | COMPLETED</td>
+                                </tr>
+                                <tr>
+                                    <td><code>priority</code></td>
+                                    <td>string</td>
+                                    <td class="optional">Optional</td>
+                                    <td>LOW | MEDIUM (default) | HIGH</td>
+                                </tr>
+                                <tr>
+                                    <td><code>dueDate</code></td>
+                                    <td>string</td>
+                                    <td class="optional">Optional</td>
+                                    <td>ISO date format (YYYY-MM-DD)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>assignedTo</code></td>
+                                    <td>integer</td>
+                                    <td class="optional">Optional</td>
+                                    <td>User ID to assign (Admin/Manager only)</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="endpoint-section">
+                            <h5>Example Request</h5>
+                            <pre><code>POST /api/tasks
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+Content-Type: application/json
+
+{
+  "title": "Implement user dashboard",
+  "description": "Create a dashboard showing task statistics",
+  "status": "TODO",
+  "priority": "HIGH",
+  "dueDate": "2026-04-15",
+  "assignedTo": 3
+}</code></pre>
+                        </div>
+
+                        <div class="endpoint-section">
+                            <h5>Success Response (201)</h5>
+                            <pre><code>{
+  "message": "Task created",
+  "task": {
+    "id": 5,
+    "title": "Implement user dashboard",
+    "description": "Create a dashboard showing task statistics",
+    "status": "TODO",
+    "priority": "HIGH",
+    "dueDate": "2026-04-15T00:00:00.000Z",
+    "userId": 1,
+    "assignedTo": 3,
+    "user": { "id": 1, "username": "admin", "email": "admin@admin.com" },
+    "assignee": { "id": 3, "username": "user", "email": "user@example.com" },
+    "createdAt": "2026-04-01T12:00:00.000Z",
+    "updatedAt": "2026-04-01T12:00:00.000Z"
+  }
+}</code></pre>
+                        </div>
+
+                        <div class="endpoint-section">
+                            <h5>Error Responses</h5>
+                            <div class="error-responses">
+                                <div class="error-item">
+                                    <span class="error-code">400</span>
+                                    <span>Validation failed (missing title, invalid status, etc.)</span>
+                                </div>
+                                <div class="error-item">
+                                    <span class="error-code">403</span>
+                                    <span>You cannot assign tasks to others (User role)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method put">PUT</span>
+                        <span class="path">/api/tasks/:id</span>
+                        <span class="auth-badge protected">🔒 Protected</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p class="description">Update an existing task. Users can only update their own tasks or tasks assigned to them. Admin/Manager can update any task.</p>
+                        
+                        <div class="endpoint-section">
+                            <h5>Path Parameters</h5>
+                            <table class="params-table">
+                                <tr>
+                                    <td><code>id</code></td>
+                                    <td>integer</td>
+                                    <td class="required">Required</td>
+                                    <td>Task ID to update</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="endpoint-section">
+                            <h5>Request Body (all fields optional)</h5>
+                            <table class="params-table">
+                                <tr>
+                                    <td><code>title</code></td>
+                                    <td>string</td>
+                                    <td class="optional">Optional</td>
+                                    <td>New title</td>
+                                </tr>
+                                <tr>
+                                    <td><code>description</code></td>
+                                    <td>string</td>
+                                    <td class="optional">Optional</td>
+                                    <td>New description</td>
+                                </tr>
+                                <tr>
+                                    <td><code>status</code></td>
+                                    <td>string</td>
+                                    <td class="optional">Optional</td>
+                                    <td>TODO | IN_PROGRESS | COMPLETED</td>
+                                </tr>
+                                <tr>
+                                    <td><code>priority</code></td>
+                                    <td>string</td>
+                                    <td class="optional">Optional</td>
+                                    <td>LOW | MEDIUM | HIGH</td>
+                                </tr>
+                                <tr>
+                                    <td><code>assignedTo</code></td>
+                                    <td>integer|null</td>
+                                    <td class="optional">Optional</td>
+                                    <td>Reassign task (Admin/Manager only)</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="endpoint-section">
+                            <h5>Example Request</h5>
+                            <pre><code>PUT /api/tasks/5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+Content-Type: application/json
+
+{
+  "status": "IN_PROGRESS",
+  "priority": "HIGH"
+}</code></pre>
+                        </div>
+
+                        <div class="endpoint-section">
+                            <h5>Success Response (200)</h5>
+                            <pre><code>{
+  "message": "Task updated",
+  "task": {
+    "id": 5,
+    "title": "Implement user dashboard",
+    "status": "IN_PROGRESS",
+    "priority": "HIGH",
+    ...
+  }
+}</code></pre>
+                        </div>
+
+                        <div class="endpoint-section">
+                            <h5>Error Responses</h5>
+                            <div class="error-responses">
+                                <div class="error-item">
+                                    <span class="error-code">403</span>
+                                    <span>Access denied (not owner/assignee and not Admin/Manager)</span>
+                                </div>
+                                <div class="error-item">
+                                    <span class="error-code">403</span>
+                                    <span>You cannot reassign tasks (User role)</span>
+                                </div>
+                                <div class="error-item">
+                                    <span class="error-code">404</span>
+                                    <span>Task not found</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method delete">DELETE</span>
+                        <span class="path">/api/tasks/:id</span>
+                        <span class="auth-badge protected">🔒 Protected</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p class="description">Delete a task. Users can delete their own tasks. Admin can delete any task. Manager can delete own tasks.</p>
+                        
+                        <div class="endpoint-section">
+                            <h5>Path Parameters</h5>
+                            <table class="params-table">
+                                <tr>
+                                    <td><code>id</code></td>
+                                    <td>integer</td>
+                                    <td class="required">Required</td>
+                                    <td>Task ID to delete</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="endpoint-section">
+                            <h5>Example Request</h5>
+                            <pre><code>DELETE /api/tasks/5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</code></pre>
+                        </div>
+
+                        <div class="endpoint-section">
+                            <h5>Success Response (200)</h5>
+                            <pre><code>{
+  "message": "Task deleted"
+}</code></pre>
+                        </div>
+
+                        <div class="endpoint-section">
+                            <h5>Error Responses</h5>
+                            <div class="error-responses">
+                                <div class="error-item">
+                                    <span class="error-code">403</span>
+                                    <span>Access denied (not owner and doesn't have tasks:delete:all)</span>
+                                </div>
+                                <div class="error-item">
+                                    <span class="error-code">404</span>
+                                    <span>Task not found</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/tasks/stats</span>
+                        <span class="auth-badge protected">🔒 Protected</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <p class="description">Get task statistics (count by status). Scoped to user's visible tasks.</p>
+
+                        <div class="endpoint-section">
+                            <h5>Success Response (200)</h5>
+                            <pre><code>{
+  "stats": {
+    "total": 15,
+    "todo": 5,
+    "inProgress": 6,
+    "completed": 4
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RBAC Section -->
+        <section id="rbac" class="section">
+            <div class="section-header">
+                <h1>👥 Role-Based Access Control</h1>
+                <p class="subtitle">Permission Matrix and Access Rules</p>
+            </div>
+
+            <div class="card">
+                <h2>Role Hierarchy</h2>
+                <div class="role-hierarchy">
+                    <div class="role-card admin">
+                        <div class="role-icon">👑</div>
+                        <h3>Admin</h3>
+                        <p>Full system access</p>
+                        <ul>
+                            <li>Manage all users</li>
+                            <li>Manage all tasks</li>
+                            <li>Change user roles</li>
+                            <li>Impersonate users</li>
+                        </ul>
+                    </div>
+                    <div class="role-arrow">→</div>
+                    <div class="role-card manager">
+                        <div class="role-icon">👔</div>
+                        <h3>Manager</h3>
+                        <p>Team management</p>
+                        <ul>
+                            <li>View all users</li>
+                            <li>View & update all tasks</li>
+                            <li>Assign tasks to users</li>
+                            <li>Delete own tasks</li>
+                        </ul>
+                    </div>
+                    <div class="role-arrow">→</div>
+                    <div class="role-card user">
+                        <div class="role-icon">👤</div>
+                        <h3>User</h3>
+                        <p>Basic access</p>
+                        <ul>
+                            <li>Create own tasks</li>
+                            <li>View own & assigned tasks</li>
+                            <li>Update own tasks</li>
+                            <li>Delete own tasks</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Permission Matrix</h2>
+                <div class="permission-matrix">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Permission</th>
+                                <th class="admin-col">Admin</th>
+                                <th class="manager-col">Manager</th>
+                                <th class="user-col">User</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="section-row">
+                                <td colspan="4">User Management</td>
+                            </tr>
+                            <tr>
+                                <td><code>users:create</code> - Create new users</td>
+                                <td class="yes">✅</td>
+                                <td class="no">❌</td>
+                                <td class="no">❌</td>
+                            </tr>
+                            <tr>
+                                <td><code>users:read</code> - View user list</td>
+                                <td class="yes">✅</td>
+                                <td class="yes">✅</td>
+                                <td class="no">❌</td>
+                            </tr>
+                            <tr>
+                                <td><code>users:update</code> - Modify users</td>
+                                <td class="yes">✅</td>
+                                <td class="no">❌</td>
+                                <td class="no">❌</td>
+                            </tr>
+                            <tr>
+                                <td><code>users:delete</code> - Delete users</td>
+                                <td class="yes">✅</td>
+                                <td class="no">❌</td>
+                                <td class="no">❌</td>
+                            </tr>
+                            <tr>
+                                <td><code>roles:manage</code> - Change user roles</td>
+                                <td class="yes">✅</td>
+                                <td class="no">❌</td>
+                                <td class="no">❌</td>
+                            </tr>
+                            <tr class="section-row">
+                                <td colspan="4">Task Management</td>
+                            </tr>
+                            <tr>
+                                <td><code>tasks:create</code> - Create tasks</td>
+                                <td class="yes">✅</td>
+                                <td class="yes">✅</td>
+                                <td class="yes">✅</td>
+                            </tr>
+                            <tr>
+                                <td><code>tasks:read:all</code> - View all tasks</td>
+                                <td class="yes">✅</td>
+                                <td class="yes">✅</td>
+                                <td class="no">❌</td>
+                            </tr>
+                            <tr>
+                                <td><code>tasks:read:own</code> - View own tasks</td>
+                                <td class="yes">✅</td>
+                                <td class="yes">✅</td>
+                                <td class="yes">✅</td>
+                            </tr>
+                            <tr>
+                                <td><code>tasks:update:all</code> - Edit any task</td>
+                                <td class="yes">✅</td>
+                                <td class="yes">✅</td>
+                                <td class="no">❌</td>
+                            </tr>
+                            <tr>
+                                <td><code>tasks:update:own</code> - Edit own tasks</td>
+                                <td class="yes">✅</td>
+                                <td class="yes">✅</td>
+                                <td class="yes">✅</td>
+                            </tr>
+                            <tr>
+                                <td><code>tasks:delete:all</code> - Delete any task</td>
+                                <td class="yes">✅</td>
+                                <td class="no">❌</td>
+                                <td class="no">❌</td>
+                            </tr>
+                            <tr>
+                                <td><code>tasks:delete:own</code> - Delete own tasks</td>
+                                <td class="yes">✅</td>
+                                <td class="yes">✅</td>
+                                <td class="yes">✅</td>
+                            </tr>
+                            <tr>
+                                <td><code>tasks:assign</code> - Assign tasks to users</td>
+                                <td class="yes">✅</td>
+                                <td class="yes">✅</td>
+                                <td class="no">❌</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Permission Middleware Code</h2>
+                <div class="code-block large">
+                    <pre><code>// middleware/permission.ts
+
+export const hasPermission = (...requiredPermissions: string[]) => {
+  return (req: AuthRequest, res: Response, next: NextFunction): void => {
+    if (!req.user) {
+      res.status(401).json({ message: 'Not authenticated' });
+      return;
+    }
+
+    const userPermissions = req.user.role.permissions;
+    
+    // Check if user has ANY of the required permissions (OR logic)
+    const hasRequired = requiredPermissions.some(perm => 
+      userPermissions.includes(perm)
+    );
+
+    if (!hasRequired) {
+      res.status(403).json({ 
+        message: 'Access denied. Insufficient permissions.'
+      });
+      return;
+    }
+
+    next();
+  };
+};
+
+// Usage in routes:
+router.get('/tasks', hasPermission('tasks:read:own', 'tasks:read:all'), getTasks);
+router.post('/users', hasPermission('users:create'), createUser);</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- System Flow Section -->
+        <section id="system-flow" class="section">
+            <div class="section-header">
+                <h1>🔄 System Flow Diagrams</h1>
+                <p class="subtitle">Visual representation of system processes</p>
+            </div>
+
+            <div class="card">
+                <h2>User Authentication Flow</h2>
+                <div class="flow-diagram horizontal">
+                    <div class="flow-box">
+                        <span class="flow-icon">👤</span>
+                        <span>User enters credentials</span>
+                    </div>
+                    <div class="flow-arrow-h">→</div>
+                    <div class="flow-box">
+                        <span class="flow-icon">📤</span>
+                        <span>POST /api/auth/login</span>
+                    </div>
+                    <div class="flow-arrow-h">→</div>
+                    <div class="flow-box">
+                        <span class="flow-icon">🔍</span>
+                        <span>Find user in DB</span>
+                    </div>
+                    <div class="flow-arrow-h">→</div>
+                    <div class="flow-box">
+                        <span class="flow-icon">🔐</span>
+                        <span>Verify password (bcrypt)</span>
+                    </div>
+                    <div class="flow-arrow-h">→</div>
+                    <div class="flow-box">
+                        <span class="flow-icon">🎫</span>
+                        <span>Generate JWT (7 days)</span>
+                    </div>
+                    <div class="flow-arrow-h">→</div>
+                    <div class="flow-box success">
+                        <span class="flow-icon">✅</span>
+                        <span>Return token + user</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Protected Request Flow</h2>
+                <div class="swimlane-diagram">
+                    <div class="swimlane">
+                        <div class="swimlane-header">Client (React)</div>
+                        <div class="swimlane-content">
+                            <div class="swim-box">User clicks action</div>
+                            <div class="swim-arrow">↓</div>
+                            <div class="swim-box">Axios adds token header</div>
+                            <div class="swim-arrow">↓</div>
+                            <div class="swim-box outgoing">HTTP Request →</div>
+                        </div>
+                    </div>
+                    <div class="swimlane">
+                        <div class="swimlane-header">Server (Express)</div>
+                        <div class="swimlane-content">
+                            <div class="swim-box incoming">← Receive Request</div>
+                            <div class="swim-arrow">↓</div>
+                            <div class="swim-box">Auth Middleware: Verify JWT</div>
+                            <div class="swim-arrow">↓</div>
+                            <div class="swim-box">Permission Middleware: Check RBAC</div>
+                            <div class="swim-arrow">↓</div>
+                            <div class="swim-box">Validation Middleware</div>
+                            <div class="swim-arrow">↓</div>
+                            <div class="swim-box">Controller: Business Logic</div>
+                            <div class="swim-arrow">↓</div>
+                            <div class="swim-box outgoing">Response →</div>
+                        </div>
+                    </div>
+                    <div class="swimlane">
+                        <div class="swimlane-header">Database (SQLite)</div>
+                        <div class="swimlane-content">
+                            <div class="swim-box incoming">← Prisma Query</div>
+                            <div class="swim-arrow">↓</div>
+                            <div class="swim-box">Execute SQL</div>
+                            <div class="swim-arrow">↓</div>
+                            <div class="swim-box outgoing">Return Data →</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Task Creation Flow</h2>
+                <div class="sequence-diagram">
+                    <div class="seq-step">
+                        <div class="seq-actor">User</div>
+                        <div class="seq-action">Fills task form & clicks "Create"</div>
+                    </div>
+                    <div class="seq-arrow">↓</div>
+                    <div class="seq-step">
+                        <div class="seq-actor">React App</div>
+                        <div class="seq-action">Validates form locally, calls api.post('/tasks', data)</div>
+                    </div>
+                    <div class="seq-arrow">↓</div>
+                    <div class="seq-step">
+                        <div class="seq-actor">Axios Interceptor</div>
+                        <div class="seq-action">Adds Authorization: Bearer {token} header</div>
+                    </div>
+                    <div class="seq-arrow">↓</div>
+                    <div class="seq-step">
+                        <div class="seq-actor">Express Router</div>
+                        <div class="seq-action">Routes to POST /api/tasks</div>
+                    </div>
+                    <div class="seq-arrow">↓</div>
+                    <div class="seq-step">
+                        <div class="seq-actor">Auth Middleware</div>
+                        <div class="seq-action">jwt.verify(token) → attaches req.user</div>
+                    </div>
+                    <div class="seq-arrow">↓</div>
+                    <div class="seq-step">
+                        <div class="seq-actor">Permission Middleware</div>
+                        <div class="seq-action">Checks user has 'tasks:create' permission</div>
+                    </div>
+                    <div class="seq-arrow">↓</div>
+                    <div class="seq-step">
+                        <div class="seq-actor">Validation Middleware</div>
+                        <div class="seq-action">express-validator checks title, status, priority</div>
+                    </div>
+                    <div class="seq-arrow">↓</div>
+                    <div class="seq-step">
+                        <div class="seq-actor">Task Controller</div>
+                        <div class="seq-action">prisma.task.create({data}) → returns new task</div>
+                    </div>
+                    <div class="seq-arrow">↓</div>
+                    <div class="seq-step success">
+                        <div class="seq-actor">Response</div>
+                        <div class="seq-action">201 Created: { message, task }</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Setup Section -->
+        <section id="setup" class="section">
+            <div class="section-header">
+                <h1>⚙️ Setup Guide</h1>
+                <p class="subtitle">Get the project running locally</p>
+            </div>
+
+            <div class="card">
+                <h2>Prerequisites</h2>
+                <div class="prereq-grid">
+                    <div class="prereq-item">
+                        <span class="prereq-icon">🟢</span>
+                        <h4>Node.js 18+</h4>
+                        <code>node --version</code>
+                    </div>
+                    <div class="prereq-item">
+                        <span class="prereq-icon">📦</span>
+                        <h4>npm or yarn</h4>
+                        <code>npm --version</code>
+                    </div>
+                    <div class="prereq-item">
+                        <span class="prereq-icon">💻</span>
+                        <h4>Git</h4>
+                        <code>git --version</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Installation Steps</h2>
+                <div class="setup-steps">
+                    <div class="setup-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Clone the Repository</h4>
+                            <pre><code>git clone https://github.com/SauravDnj/Task-Management-System.git
+cd Task-Management-System</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="setup-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Setup Backend</h4>
+                            <pre><code>cd backend
+npm install
+
+# Generate Prisma client
+npm run db:generate
+
+# Create database & apply schema
+npm run db:push
+
+# Seed initial data (roles, permissions, demo users)
+npm run db:seed</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="setup-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Configure Environment</h4>
+                            <p>Create <code>backend/.env</code> file:</p>
+                            <pre><code>DATABASE_URL="file:./dev.db"
+JWT_SECRET="your-super-secret-key-change-in-production"
+JWT_EXPIRES_IN="7d"
+PORT=5001
+NODE_ENV=development</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="setup-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Setup Frontend</h4>
+                            <pre><code>cd ../frontend
+npm install</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="setup-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h4>Start Development Servers</h4>
+                            <pre><code># Terminal 1 - Backend (port 5001)
+cd backend
+npm run dev
+
+# Terminal 2 - Frontend (port 5173)
+cd frontend
+npm run dev</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="setup-step success">
+                        <div class="step-number">✓</div>
+                        <div class="step-content">
+                            <h4>Access the Application</h4>
+                            <p>Open <a href="http://localhost:5173" target="_blank">http://localhost:5173</a> in your browser</p>
+                            <div class="credentials-box">
+                                <h5>Demo Credentials</h5>
+                                <table>
+                                    <tr>
+                                        <th>Role</th>
+                                        <th>Email</th>
+                                        <th>Password</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Admin</td>
+                                        <td>admin@admin.com</td>
+                                        <td>admin123</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Manager</td>
+                                        <td>manager@example.com</td>
+                                        <td>manager123</td>
+                                    </tr>
+                                    <tr>
+                                        <td>User</td>
+                                        <td>user@example.com</td>
+                                        <td>user123</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Available Scripts</h2>
+                <div class="scripts-grid">
+                    <div class="script-category">
+                        <h4>Backend Scripts</h4>
+                        <table>
+                            <tr>
+                                <td><code>npm run dev</code></td>
+                                <td>Start development server with hot reload</td>
+                            </tr>
+                            <tr>
+                                <td><code>npm run build</code></td>
+                                <td>Compile TypeScript to JavaScript</td>
+                            </tr>
+                            <tr>
+                                <td><code>npm run db:generate</code></td>
+                                <td>Generate Prisma client</td>
+                            </tr>
+                            <tr>
+                                <td><code>npm run db:push</code></td>
+                                <td>Push schema to database</td>
+                            </tr>
+                            <tr>
+                                <td><code>npm run db:seed</code></td>
+                                <td>Seed demo data</td>
+                            </tr>
+                            <tr>
+                                <td><code>npm run db:studio</code></td>
+                                <td>Open Prisma Studio GUI</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="script-category">
+                        <h4>Frontend Scripts</h4>
+                        <table>
+                            <tr>
+                                <td><code>npm run dev</code></td>
+                                <td>Start Vite dev server</td>
+                            </tr>
+                            <tr>
+                                <td><code>npm run build</code></td>
+                                <td>Build for production</td>
+                            </tr>
+                            <tr>
+                                <td><code>npm run preview</code></td>
+                                <td>Preview production build</td>
+                            </tr>
+                            <tr>
+                                <td><code>npm run lint</code></td>
+                                <td>Run ESLint</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>Task Management System Documentation</p>
+                <p>Built with ❤️ using React, Node.js, Express, Prisma & SQLite</p>
+                <p class="footer-links">
+                    <a href="https://github.com/SauravDnj/Task-Management-System" target="_blank">GitHub Repository</a>
+                </p>
+            </div>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
