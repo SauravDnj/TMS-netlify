@@ -4,7 +4,10 @@
   "description": "Netlify Functions for Task Management System",
   "type": "module",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "db:push": "prisma db push",
+    "db:seed": "npx tsx prisma/seed.ts",
+    "db:setup": "prisma db push && npx tsx prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.10.0",
@@ -23,6 +26,7 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.11.24",
     "prisma": "^5.10.0",
+    "tsx": "^4.7.1",
     "typescript": "^5.3.3"
   }
 }

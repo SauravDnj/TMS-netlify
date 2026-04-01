@@ -1,5 +1,5 @@
 [build]
-  # Build command
+  # Build command - sets up database and builds frontend
   command = "npm run build:netlify"
   publish = "frontend/dist"
   functions = "netlify/functions"
